@@ -1,9 +1,6 @@
-#include "Globals.h"
 #include "Application.h"
 #include "ModuleInput.h"
-#include "ModuleOpenGL.h"
 #include "ModuleWindow.h"
-#include <SDL.h>
 #include "imgui_impl_sdl2.h"
 
 ModuleInput::ModuleInput()

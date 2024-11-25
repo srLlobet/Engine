@@ -1,5 +1,4 @@
 #include <GL/glew.h>
-#include "Globals.h"
 #include "Application.h"
 #include "ModuleOpenGL.h"
 #include "ModuleWindow.h"
