@@ -1,13 +1,7 @@
 #include <stdlib.h>
-#include "Application.h"
-#include "imgui.h"
-#include "imgui_impl_opengl3.h"
-#include "imgui_impl_win32.h"
-#include "ModuleOpenGL.h"
-#include "Globals.h"
-#include "MathGeoLib.h"
-
 #include <SDL.h>
+#include "Application.h"
+
 #pragma comment( lib, "lib/SDL/lib/x64/SDL2.lib" )
 #pragma comment( lib, "lib/SDL/lib/x64/SDL2main.lib" )
 

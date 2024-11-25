@@ -28,7 +28,7 @@ bool ModuleRenderExercise::Init()
 
     frustum.type = FrustumType::PerspectiveFrustum;
     frustum.pos = float3::zero;         // Camera position
-    //frustum.pos = float3(0.0f, 0.0f, 2.0f);
+    frustum.pos = float3(0.0f, 0.0f, 6.0f);
     frustum.front = -float3::unitZ;    // Looking towards -Z
     frustum.up = float3::unitY;        // Up direction
     frustum.nearPlaneDistance = 0.5f;
@@ -37,7 +37,7 @@ bool ModuleRenderExercise::Init()
     frustum.horizontalFov = 2.f * atanf(tanf(frustum.verticalFov * 0.5f) * SCREEN_WIDTH/SCREEN_HEIGHT); 
  
 
-    //model = float4x4::identity; // No transformation
+    model = float4x4::identity; // No transformation
     view = frustum.ViewMatrix(); // Use frustum view matrix
     //view = float4x4::identity;
     projection = frustum.ProjectionMatrix();
