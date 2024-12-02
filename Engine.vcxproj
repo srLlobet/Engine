@@ -200,7 +200,6 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="debugdraw.h" />
     <ClInclude Include="debug_draw.hpp" />
-    <ClInclude Include="Dummy.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="lib\imgui-docking\backends\imgui_impl_opengl3.h" />
     <ClInclude Include="lib\imgui-docking\backends\imgui_impl_opengl3_loader.h" />

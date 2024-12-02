@@ -1,6 +1,8 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "ModuleWindow.h"
+#include "ModuleCamera.h"
+#include "ModuleRenderExercise.h"
 #include "imgui_impl_sdl2.h"
 
 ModuleInput::ModuleInput()
@@ -37,8 +39,30 @@ update_status ModuleInput::Update()
         {
             case SDL_QUIT:
                 return UPDATE_STOP;
+
             case SDL_WINDOWEVENT:
-                    App->GetWindow()->HandleWindowEvent(sdlEvent);
+
+                App->GetWindow()->HandleWindowEvent(sdlEvent);
+
+                break;
+
+            case SDL_KEYDOWN:
+
+                if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_W)
+                    App->GetCamera()->MoveForward(true);  //  forward
+                else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_S)
+                    App->GetCamera()->MoveForward(false); // camera backward
+                else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_A)
+                    App->GetCamera()->MoveRight(true); // camera left
+                else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_D)
+                    App->GetCamera()->MoveRight(false); // camera right
+                else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_Q)
+                    App->GetCamera()->MoveUp(true); // camera up
+                else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_E)
+                    App->GetCamera()->MoveUp(false); // camera down
+
+                App->GetRenderExercise()->UpdateViewMatrix();
+
                 break;
         }
         ImGui_ImplSDL2_ProcessEvent(&sdlEvent);

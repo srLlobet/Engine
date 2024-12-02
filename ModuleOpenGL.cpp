@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleOpenGL.h"
 #include "ModuleWindow.h"
+#include "ModuleCamera.h"
 #include "ModuleRenderExercise.h"
 #include "SDL.h"
 
@@ -67,7 +68,7 @@ update_status ModuleOpenGL::PostUpdate()
 	return UPDATE_CONTINUE;
 }
 
-// Called before quitting
+
 bool ModuleOpenGL::CleanUp()
 {
 	LOG("Destroying renderer");
@@ -84,10 +85,12 @@ bool ModuleOpenGL::CleanUp()
 	return true;
 }
 
+//handles opengl operation
 void ModuleOpenGL::WindowResized(unsigned width, unsigned height)
 {
 	glViewport(0, 0, width, height);  // Update the OpenGL viewport
 
-	App->GetRenderExercise()->UpdateProjectionMatrix(static_cast<float>(width) / height);
+	App->GetCamera()->RecalculateHorizontalFov(static_cast<float>(width) / height);
+	App->GetRenderExercise()->UpdateProjectionMatrix();
 }
 

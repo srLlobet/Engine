@@ -1,5 +1,4 @@
-#ifndef _DEBUGDRAW_H_
-#define _DEBUGDRAW_H_
+#pragma once
 
 #include "Math/float3.h"
 #include "Math/float4x4.h"
@@ -20,4 +19,3 @@ typedef       ddMat4x4& ddMat4x4_Out;
 
 #include "debug_draw.hpp"
 
-#endif /* _DEBUGDRAW_H_ */

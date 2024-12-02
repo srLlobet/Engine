@@ -1,6 +1,4 @@
-#ifndef __ModuleProgram_H__
-#define __ModuleProgram_H__
-
+#pragma once
 #include <GL/glew.h> 
 #include <GL/gl.h>
 #include <memory>
@@ -25,4 +23,3 @@ public:
 };
 
 
-#endif  __ModuleProgram_H__

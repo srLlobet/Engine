@@ -1,8 +1,9 @@
 #include "ModuleRenderExercise.h"
 #include "ModuleProgram.h"
-#include "Globals.h"
-#include <GL/glew.h> 
-#include <GL/gl.h>
+#include "Application.h"
+#include "ModuleCamera.h"
+#include "lib/MathGeoLib/Math/MathConstants.h"
+
 
 ModuleRenderExercise::ModuleRenderExercise()
 {
@@ -15,32 +16,32 @@ ModuleRenderExercise::~ModuleRenderExercise()
 bool ModuleRenderExercise::Init()
 {
     program = ModuleProgram::CreateProgram("default_vertex.glsl", "default_fragment.glsl");
+    
+    //locations cache
+    modelLoc = glGetUniformLocation(program, "model");
+    viewLoc = glGetUniformLocation(program, "view");
+    projectionLoc = glGetUniformLocation(program, "projection");
+
+
     if (program == 0) {
         LOG("Failed to create program");
         return false;
     }
+
     vbo = CreateTriangleVBO();
+
     if (vbo == 0) {
         LOG("Failed to create vbo");
         glDeleteProgram(program);
         return false;
     }
 
-    frustum.type = FrustumType::PerspectiveFrustum;
-    frustum.pos = float3::zero;         // Camera position
-    frustum.pos = float3(0.0f, 0.0f, 6.0f);
-    frustum.front = -float3::unitZ;    // Looking towards -Z
-    frustum.up = float3::unitY;        // Up direction
-    frustum.nearPlaneDistance = 0.5f;
-    frustum.farPlaneDistance = 100.0f;
-    frustum.verticalFov = pi / 4.0f; // 45 degrees
-    frustum.horizontalFov = 2.f * atanf(tanf(frustum.verticalFov * 0.5f) * SCREEN_WIDTH/SCREEN_HEIGHT); 
- 
-
-    model = float4x4::identity; // No transformation
-    view = frustum.ViewMatrix(); // Use frustum view matrix
+    model = float4x4::identity;
+        /*float4x4::FromTRS(float3(2.0f, 0.0f, 0.0f),
+        float4x4::RotateZ(pi / 4.0f),
+        float3(2.0f, 1.0f, 1.0f)); // No transformation
+        */
     //view = float4x4::identity;
-    projection = frustum.ProjectionMatrix();
     //projection = float4x4::identity;
 
 
@@ -65,9 +66,13 @@ void ModuleRenderExercise::RenderVBO()
 
     glUseProgram(program);
 
-    glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_TRUE, &model[0][0]);
-    glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_TRUE, &view[0][0]);
-    glUniformMatrix4fv(glGetUniformLocation(program, "projection"), 1, GL_TRUE, &projection[0][0]);
+
+
+    glUniformMatrix4fv(modelLoc, 1, GL_TRUE, &model[0][0]);
+    glUniformMatrix4fv(viewLoc, 1, GL_TRUE, &view[0][0]);
+    glUniformMatrix4fv(projectionLoc, 1, GL_TRUE, &projection[0][0]);
+
+
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
@@ -83,7 +88,7 @@ void ModuleRenderExercise::RenderVBO()
 
 unsigned ModuleRenderExercise::CreateTriangleVBO()
 {
-    {
+    { //{ -0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 0.5f, 0.0f };
         float vtx_data[] = { -1.0f, -1.0f, -2.0f, 1.0f, -1.0f, -2.0f, 0.0f, 1.0f, -2.0f };
         unsigned vbo;
         glGenBuffers(1, &vbo);
@@ -96,12 +101,19 @@ unsigned ModuleRenderExercise::CreateTriangleVBO()
     return 0;   
 }
 
+void ModuleRenderExercise::UpdateViewMatrix() {
+
+    view = App->GetCamera()->GetViewMatrix();
+
+}
+void ModuleRenderExercise::UpdateProjectionMatrix() {
+
+
+    projection = App->GetCamera()->GetProjectionMatrix();
+
+}
+
 void ModuleRenderExercise::DestroyVBO(unsigned vbo)
 {
     glDeleteBuffers(1, &vbo);
-}
-void ModuleRenderExercise::UpdateProjectionMatrix(float aspectRatio)
-{
-    frustum.horizontalFov = 2.f * atanf(tanf(frustum.verticalFov * 0.5f) * aspectRatio);
-    projection = frustum.ProjectionMatrix();
 }

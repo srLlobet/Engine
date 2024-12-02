@@ -4,7 +4,9 @@
 
 struct SDL_Texture;
 struct SDL_Renderer;
+#pragma once
 struct SDL_Rect;
+
 
 class ModuleOpenGL : public Module
 {

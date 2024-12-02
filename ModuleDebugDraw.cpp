@@ -1,7 +1,7 @@
 #include "Globals.h"
 #include "ModuleDebugDraw.h"
 #include "Application.h"
-#include "ModuleRenderExercise.h"
+#include "ModuleCamera.h"
 
 #define DEBUG_DRAW_IMPLEMENTATION
 #include "DebugDraw.h"     // Debug Draw API. Notice that we need the DEBUG_DRAW_IMPLEMENTATION macro here!
@@ -610,11 +610,11 @@ bool ModuleDebugDraw::CleanUp()
 
 update_status  ModuleDebugDraw::Update()
 {
-    float4x4 projection = App->GetRenderExercise()->GetProjectionMatrix(); // Actual projection matrix
-    float4x4 view = App->GetRenderExercise()->GetViewMatrix();     // Actual view matrix
+    float4x4 projection = App->GetCamera()->GetProjectionMatrix(); // Actual projection matrix
+    float4x4 view = App->GetCamera()->GetViewMatrix();  // Actual view matrix
 
     dd::axisTriad(float4x4::identity, 0.1f, 1.0f);  // Draw axis
-    dd::xzSquareGrid(-10, 10, 0.0f, 1.0f, dd::colors::Gray);  // Draw grid
+    dd::xzSquareGrid(-50, 50, 0.0f, 1.0f, dd::colors::Gray);  // Draw grid
 
     Draw(view, projection, SCREEN_WIDTH, SCREEN_HEIGHT);
 
