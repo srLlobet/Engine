@@ -4,6 +4,8 @@
 #include "ModuleWindow.h"
 #include "ModuleCamera.h"
 #include "ModuleRenderExercise.h"
+#include "ModuleTexture.h"
+#include "DirectXTex.h"
 #include "SDL.h"
 
 ModuleOpenGL::ModuleOpenGL()
@@ -94,3 +96,61 @@ void ModuleOpenGL::WindowResized(unsigned width, unsigned height)
 	App->GetRenderExercise()->UpdateProjectionMatrix();
 }
 
+void ModuleOpenGL::LoadTextureToGPU(const wchar_t* filePath) {
+
+	DirectX::ScratchImage image = App->GetTexture()->LoadImage(filePath);
+
+	const DirectX::TexMetadata& metadata = image.GetMetadata();
+
+	GLuint textureID;
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);  // Wrap mode S
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);  // Wrap mode T
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // Minification filter
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);   // Magnification filter
+
+	GLenum internalFormat, format, type;
+
+	switch (metadata.format)
+	{
+	case DXGI_FORMAT_R8G8B8A8_UNORM_SRGB:
+	case DXGI_FORMAT_R8G8B8A8_UNORM:
+		internalFormat = GL_RGBA8;
+		format = GL_RGBA;
+		type = GL_UNSIGNED_BYTE;
+		break;
+	case DXGI_FORMAT_B8G8R8A8_UNORM_SRGB:
+	case DXGI_FORMAT_B8G8R8A8_UNORM:
+		internalFormat = GL_RGBA8;
+		format = GL_BGRA;
+		type = GL_UNSIGNED_BYTE;
+		break;
+	case DXGI_FORMAT_B5G6R5_UNORM:
+		internalFormat = GL_RGB8;
+		format = GL_BGR;
+		type = GL_UNSIGNED_BYTE;
+		break;
+	default:
+		assert(false && "Unsupported format");
+	}
+
+	glTexImage2D(
+		GL_TEXTURE_2D,
+		0, // level of detail, higher 0
+		internalFormat, // Internal format
+		metadata.width, // Width
+		metadata.height, // Height
+		0, // border size (0)
+		format, // data format
+		GL_UNSIGNED_BYTE, // Type
+		image.GetPixels() // Pointer to the pixel data
+	);
+
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+	// Unbind the texture
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+}

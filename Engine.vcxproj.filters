@@ -129,6 +129,7 @@
     </ClCompile>
     <ClCompile Include="ModuleEditor.cpp" />
     <ClCompile Include="ModuleCamera.cpp" />
+    <ClCompile Include="ModuleTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -320,8 +321,6 @@
       <Filter>External Resources\MathGeoLib</Filter>
     </ClInclude>
     <ClInclude Include="ModuleDebugDraw.h" />
-    <ClInclude Include="debug_draw.hpp" />
-    <ClInclude Include="debugdraw.h" />
     <ClInclude Include="lib\imgui-docking\imconfig.h">
       <Filter>External Resources\ImGUI\imgui</Filter>
     </ClInclude>
@@ -342,6 +341,16 @@
     </ClInclude>
     <ClInclude Include="ModuleEditor.h" />
     <ClInclude Include="ModuleCamera.h" />
+    <ClInclude Include="debug_draw.hpp">
+      <Filter>External Resources\debugDraw</Filter>
+    </ClInclude>
+    <ClInclude Include="debugdraw.h">
+      <Filter>External Resources\debugDraw</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\DirectXTex\DirectXTex.h">
+      <Filter>External Resources\DirectXTex</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External Resources">
@@ -358,6 +367,12 @@
     </Filter>
     <Filter Include="External Resources\ImGUI\Sources">
       <UniqueIdentifier>{92d3597c-8c2a-4604-8de4-505ba354e415}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External Resources\debugDraw">
+      <UniqueIdentifier>{42108644-c2f4-4f4f-8aaa-92ea374c65b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External Resources\DirectXTex">
+      <UniqueIdentifier>{764ba484-954f-4f6b-9ab8-3e31cd956dcd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -17,12 +17,8 @@ bool ModuleCamera::Init()
     frustum.type = FrustumType::PerspectiveFrustum;
     //frustum.SetKind(FrustumSpaceGL, FrustumRightHanded);
 
-    frustum.pos = float3(0.0f, -2.0f, 0.5f);       // Camera position
+    frustum.pos = float3::zero;   // Camera position
     frustum.front = -float3::unitZ;
-
-    //frustum.front = -float3::unitZ;    // Looking towards -Z
-    //frustum.front = float3(0.0f, 0.0f, 1.0f);
-        //- frustum.pos).Normalized();
     frustum.up = float3::unitY;        // Up direction
 
     

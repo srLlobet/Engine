@@ -21,6 +21,7 @@ public:
 	bool CleanUp();
 	void WindowResized(unsigned width, unsigned height);
 	void* GetContext() const { return context; }
+	void LoadTextureToGPU(const wchar_t* filePath);
 
 private:
 	void* context;
