@@ -130,6 +130,7 @@
     <ClCompile Include="ModuleEditor.cpp" />
     <ClCompile Include="ModuleCamera.cpp" />
     <ClCompile Include="ModuleTexture.cpp" />
+    <ClCompile Include="Logger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -351,6 +352,7 @@
       <Filter>External Resources\DirectXTex</Filter>
     </ClInclude>
     <ClInclude Include="ModuleTexture.h" />
+    <ClInclude Include="Logger.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External Resources">

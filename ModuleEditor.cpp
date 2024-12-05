@@ -6,6 +6,7 @@
 #include <imgui.h>
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_sdl2.h"
+#include "Logger.h"
 
 ModuleEditor::ModuleEditor()
 {
@@ -47,6 +48,8 @@ update_status ModuleEditor::Update()
     
     ImGui::ShowDemoWindow();
 
+    DrawConsole();
+
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
@@ -66,4 +69,23 @@ bool ModuleEditor::cleanup()
     ImGui::DestroyContext();
 
     return false;
+}
+
+void ModuleEditor::DrawConsole() {
+    static bool isConsoleOpen = true;
+
+    if (isConsoleOpen) {
+        if (ImGui::Begin("Console", &isConsoleOpen)) {
+            if (ImGui::Button("Clear")) {
+                logger->Clear();
+ }
+
+            ImGui::Separator();
+
+            for (const auto& line : logger->GetLogs()) {
+                ImGui::TextUnformatted(line.c_str());
+            }
+        }
+        ImGui::End();
+    }
 }

@@ -1,9 +1,15 @@
 #pragma once
 #include "Module.h"
+#include <memory>
+
+class Logger;
+
 
 class ModuleEditor : public Module
 {
 public:
+
+	std::unique_ptr<Logger> logger;
 
 	ModuleEditor();
 
@@ -15,5 +21,7 @@ public:
 	update_status Update();
 	update_status PostUpdate();
 	bool cleanup();
+
+	void DrawConsole();
 
 };

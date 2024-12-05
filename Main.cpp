@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <SDL.h>
 #include "Application.h"
+#include "Logger.h"
 
 #pragma comment( lib, "lib/SDL/lib/x64/SDL2.lib" )
 #pragma comment( lib, "lib/SDL/lib/x64/SDL2main.lib" )
@@ -28,23 +29,23 @@ int main(int argc, char ** argv)
 		{
 		case MAIN_CREATION:
 
-			LOG("Application Creation --------------");
+			Logger::Instance().LOGS("Application Creation --------------");
 			App = new Application();
 			state = MAIN_START;
 			break;
 
 		case MAIN_START:
 
-			LOG("Application Init --------------");
+			Logger::Instance().LOGS("Application Init --------------");
 			if (App->Init() == false)
 			{
-				LOG("Application Init exits with error -----");
+				Logger::Instance().LOGS("Application Init exits with error -----");
 				state = MAIN_EXIT;
 			}
 			else
 			{
 				state = MAIN_UPDATE;
-				LOG("Application Update --------------");
+				Logger::Instance().LOGS("Application Update --------------");
 			}
 
 			break;
@@ -55,7 +56,7 @@ int main(int argc, char ** argv)
 
 			if (update_return == UPDATE_ERROR)
 			{
-				LOG("Application Update exits with error -----");
+				Logger::Instance().LOGS("Application Update exits with error -----");
 				state = MAIN_EXIT;
 			}
 
@@ -66,10 +67,10 @@ int main(int argc, char ** argv)
 
 		case MAIN_FINISH:
 
-			LOG("Application CleanUp --------------");
+			Logger::Instance().LOGS("Application CleanUp --------------");
 			if (App->CleanUp() == false)
 			{
-				LOG("Application CleanUp exits with error -----");
+				Logger::Instance().LOGS("Application CleanUp exits with error -----");
 			}
 			else
 				main_return = EXIT_SUCCESS;
@@ -83,6 +84,6 @@ int main(int argc, char ** argv)
 	}
 
 	delete App;
-	LOG("Bye :)\n");
+	Logger::Instance().LOGS("Bye :)\n");
 	return main_return;
 }
