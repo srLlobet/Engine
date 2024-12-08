@@ -290,6 +290,9 @@
     <None Include="lib\MathGeoLib\Geometry\TriangleMesh_IntersectRay_SSE.inl" />
     <None Include="lib\MathGeoLib\Math\Matrix.inl" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Test-image-Baboon.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

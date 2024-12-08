@@ -13,5 +13,6 @@ public:
 
 
 private:
+
     std::vector<std::string> logs;
 };

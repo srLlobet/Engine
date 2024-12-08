@@ -1,12 +1,13 @@
 #pragma once
 #include "Module.h"
-#include "Globals.h"
+#include <GL/glew.h>
 
 struct SDL_Texture;
 struct SDL_Renderer;
 #pragma once
 struct SDL_Rect;
 
+struct TextureHandle; //to not have to include opengl in header
 
 class ModuleOpenGL : public Module
 {
@@ -21,8 +22,8 @@ public:
 	bool CleanUp();
 	void WindowResized(unsigned width, unsigned height);
 	void* GetContext() const { return context; }
-	void LoadTextureToGPU(const wchar_t* filePath);
 
+	GLuint LoadTextureToGPU(const wchar_t* filePath);
 private:
 	void* context;
 };

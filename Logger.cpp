@@ -6,6 +6,7 @@ Logger& Logger::Instance()
      return instance;
 }
 
+
 void Logger::LOGS(const std::string& message) {
     logs.push_back(message);
 }

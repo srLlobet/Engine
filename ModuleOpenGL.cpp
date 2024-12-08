@@ -1,4 +1,4 @@
-#include <GL/glew.h>
+
 #include "Application.h"
 #include "ModuleOpenGL.h"
 #include "ModuleWindow.h"
@@ -6,6 +6,7 @@
 #include "ModuleRenderExercise.h"
 #include "ModuleTexture.h"
 #include "DirectXTex.h"
+#include "Logger.h"
 #include "SDL.h"
 
 ModuleOpenGL::ModuleOpenGL()
@@ -34,17 +35,11 @@ bool ModuleOpenGL::Init()
 
 	GLenum err = glewInit();
 
-	LOG("Using Glew %s", glewGetString(GLEW_VERSION));
-
-	LOG("Vendor: %s", glGetString(GL_VENDOR));
-	LOG("Renderer: %s", glGetString(GL_RENDERER));
-	LOG("OpenGL version supported %s", glGetString(GL_VERSION));
-	LOG("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
-
 	glEnable(GL_DEPTH_TEST); // Enable depth test
 	glEnable(GL_CULL_FACE); // Enable cull backward faces
 	glFrontFace(GL_CCW); // Front faces will be counter clockwise
 
+	GLuint textureID = LoadTextureToGPU(L"Test-image-Baboon.png");
 	return true;
 }
 
@@ -75,6 +70,7 @@ bool ModuleOpenGL::CleanUp()
 {
 	LOG("Destroying renderer");
 
+	//glDeleteTextures(1, &textureID);
 	SDL_GL_DeleteContext(context);
 
 	context = nullptr;
@@ -96,7 +92,7 @@ void ModuleOpenGL::WindowResized(unsigned width, unsigned height)
 	App->GetRenderExercise()->UpdateProjectionMatrix();
 }
 
-void ModuleOpenGL::LoadTextureToGPU(const wchar_t* filePath) {
+GLuint ModuleOpenGL::LoadTextureToGPU(const wchar_t* filePath) {
 
 	DirectX::ScratchImage image = App->GetTexture()->LoadImage(filePath);
 
@@ -153,4 +149,5 @@ void ModuleOpenGL::LoadTextureToGPU(const wchar_t* filePath) {
 	// Unbind the texture
 	glBindTexture(GL_TEXTURE_2D, 0);
 
+	return textureID;
 }

@@ -18,13 +18,19 @@ public:
 	void MoveForward(bool moveForward);
 	void MoveRight(bool moveRight);
 	void MoveUp(bool moveUp);
+	void RotatePitch(bool rotateUp );
+	void RotateYaw(bool rotateRight);
+
+
+
 	void RefreshViewMatrix();
 	//void Rotate();
 
 	const float4x4& GetProjectionMatrix() const { return projection; }
-	const float4x4& GetViewMatrix() const { return view; }
+	const float4x4& GetViewMatrix() const { return view; };
 
-	//const float4x4 LookAt(const float3& cameraPosition, const float3& cameraDirection, const float3& upVector){}
+	void LookAt(const float3& cameraPosition, const float3& cameraDirection, const float3& upVector);
+
 private:
 	Frustum frustum;
 	float4x4 projection; // Projection matrix

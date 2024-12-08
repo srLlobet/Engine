@@ -2,6 +2,7 @@
 #include "Globals.h"
 #include "lib/MathGeoLib/Math/float3.h"
 #include "lib/MathGeoLib/Math/MathConstants.h"
+#include "Logger.h"
 
 ModuleCamera::ModuleCamera()
 {
@@ -45,11 +46,7 @@ void ModuleCamera::RecalculateHorizontalFov(float aspectRatio)
     projection = frustum.ProjectionMatrix().Transposed();
 }
 
-void ModuleCamera::RefreshViewMatrix() {
 
-    view = float4x4(frustum.ViewMatrix()).Transposed();
-
-}
 
 void ModuleCamera::MoveForward(bool moveForward)
 {
@@ -76,8 +73,19 @@ void ModuleCamera::MoveUp(bool moveUp)
         frustum.pos += frustum.up * MOVESPEED; // Move up
     else
         frustum.pos -= frustum.up * MOVESPEED; // Move down
+
     RefreshViewMatrix();
 }
+
+void ModuleCamera::RotatePitch(bool rotateUp)
+{
+
+}
+
+void ModuleCamera::RotateYaw(bool rotateRight)
+{
+}
+
 
 //zoom
 void ModuleCamera::SetPlaneDistances(float nearPlaneDistance, float farPlaneDistance)
@@ -89,22 +97,30 @@ void ModuleCamera::SetPlaneDistances(float nearPlaneDistance, float farPlaneDist
     
 }
 
-/*const float4x4 ModuleCamera::LookAt(const float3& cameraPosition, const float3& cameraDirection, const float3& upVector) {
-    float3 zaxis = (cameraPosition - cameraDirection).Normalized();  // Camera is looking towards the target
-    float3 xaxis = upVector.Cross(zaxis).Normalized();     // Right vector
-    float3 yaxis = zaxis.Cross(xaxis);               // Up vector
+void ModuleCamera::RefreshViewMatrix() {
+
+    LookAt(frustum.pos, frustum.front, frustum.up);
+}
+
+void ModuleCamera::LookAt(const float3& cameraEye, const float3& cameraTarget, const float3& cameraUp) {
+
+    float3 forward = (cameraTarget - cameraEye).Normalized();  // Camera is looking towards the target
+    float3 right = Cross(forward,cameraUp).Normalized();     // Right vector
+    float3 up = Cross(right,forward).Normalized();               // Up vector
+    float3 position = cameraEye;
 
     // Build the view matrix
-    float4x4 matrix = float4x4::identity;
-    matrix[0] = float4(xaxis.x, yaxis.x, zaxis.x, 0.0f);
-    matrix[1] = float4(xaxis.y, yaxis.y, zaxis.y, 0.0f);
-    matrix[2] = float4(xaxis.z, yaxis.z, zaxis.z, 0.0f);
-    matrix[3] = float4(-xaxis.Dot(cameraPosition), -yaxis.Dot(cameraPosition), -zaxis.Dot(cameraPosition), 1.0f);
+    float4x4 camera = float4x4::identity;
+    camera.SetCol3(0, right);  // X-axis
+    camera.SetCol3(1, up);  // Y-axis
+    camera.SetCol3(2, -forward);  // Z-axis
+    camera.SetCol3(3, position);
 
-    return matrix;
+    float4x4 translation = float4x4::identity;
+    translation.SetTranslatePart(-cameraEye);
+
+    float4x4 viewMatrix = camera * translation; //view matrix
+
+    view = viewMatrix.Transposed();
 }
 
-const float4x4& ModuleCamera::GetViewMatrix() const {
-    return LookAt(frustum.pos, frustum.pos + frustum.front, frustum.up);
-}
-*/

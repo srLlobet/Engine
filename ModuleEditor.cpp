@@ -77,12 +77,12 @@ void ModuleEditor::DrawConsole() {
     if (isConsoleOpen) {
         if (ImGui::Begin("Console", &isConsoleOpen)) {
             if (ImGui::Button("Clear")) {
-                logger->Clear();
+                Logger::Instance().Clear();;
  }
 
             ImGui::Separator();
 
-            for (const auto& line : logger->GetLogs()) {
+            for (const auto& line : Logger::Instance().GetLogs()) {
                 ImGui::TextUnformatted(line.c_str());
             }
         }

@@ -4,6 +4,7 @@
 #include "ModuleCamera.h"
 #include "ModuleRenderExercise.h"
 #include "imgui_impl_sdl2.h"
+#include "Logger.h"
 
 ModuleInput::ModuleInput()
 {}
@@ -15,13 +16,13 @@ ModuleInput::~ModuleInput()
 // Called before render is available
 bool ModuleInput::Init()
 {
-	LOG("Init SDL input event system");
+    Logger::Instance().LOGS("Init SDL input event system");
 	bool ret = true;
 	SDL_Init(0);
 
 	if(SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
-		LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
+        Logger::Instance().LOGS("SDL_EVENTS could not initialize! SDL_Error: %s\n"); //, SDL_GetError()
 		ret = false;
 	}
 
@@ -61,9 +62,30 @@ update_status ModuleInput::Update()
                 else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_E)
                     App->GetCamera()->MoveUp(false); // camera down
 
+
+                if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_UP)
+                    App->GetCamera()->RotatePitch(true);
+                else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_DOWN)
+                    App->GetCamera()->RotatePitch(false);
+                else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_LEFT)
+                    App->GetCamera()->RotateYaw(true);
+                else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_RIGHT)
+                    App->GetCamera()->RotateYaw(false);
+
                 App->GetRenderExercise()->UpdateViewMatrix();
 
                 break;
+
+            case SDL_MOUSEMOTION: {
+
+                const float mouseSensitivity = 0.001f; // Adjust as needed
+                float deltaX = sdlEvent.motion.xrel; // Horizontal motion
+                float deltaY = sdlEvent.motion.yrel; // Vertical motion
+
+                App->GetCamera()->RotateYaw(-deltaX * mouseSensitivity); // Inverted for right-to-left movement
+                App->GetCamera()->RotatePitch(-deltaY * mouseSensitivity); // Inverted for upward movement
+                break;
+            }
         }
         ImGui_ImplSDL2_ProcessEvent(&sdlEvent);
     }
@@ -77,7 +99,7 @@ update_status ModuleInput::Update()
 // Called before quitting
 bool ModuleInput::CleanUp()
 {
-	LOG("Quitting SDL input event subsystem");
+    Logger::Instance().LOGS("Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;
 }

@@ -9,6 +9,9 @@ public:
 	ModuleTexture();
 	~ModuleTexture();
 
+	bool Init();
+	bool CleanUp();
+
 	DirectX::ScratchImage LoadImage(const wchar_t* imageFileName);
 
 };

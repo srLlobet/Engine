@@ -41,8 +41,6 @@ bool ModuleRenderExercise::Init()
         float4x4::RotateZ(pi / 4.0f),
         float3(2.0f, 1.0f, 1.0f)); // No transformation
         */
-    //view = float4x4::identity;
-    //projection = float4x4::identity;
 
 
 	return true;

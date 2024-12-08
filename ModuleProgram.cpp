@@ -1,5 +1,7 @@
 #include "ModuleProgram.h"
 #include "ModuleOpenGL.h"
+#include "Globals.h"
+#include "Logger.h"
 #include <fstream> 
 
 
@@ -80,25 +82,25 @@ unsigned ModuleProgram::CreateProgram(const char* path_vertex, const char* path_
 {
 	std::unique_ptr<char[]> vertex = LoadShaderSource(path_vertex);
 	if (!vertex) {
-		LOG("Failed to load vertex shader source");
+		Logger::Instance().LOGS("Failed to load vertex shader source");
 		return 0;
 	}
 
 	std::unique_ptr<char[]> fragment = LoadShaderSource(path_fragment);
 	if (!fragment) {
-		LOG("Failed to load fragment shader source");
+		Logger::Instance().LOGS("Failed to load fragment shader source");
 		return 0;
 	}
 
 	unsigned vertex_shader = CompileShader(GL_VERTEX_SHADER, vertex.get());
 	if (vertex_shader == 0) {
-		LOG("Vertex shader compilation failed");
+		Logger::Instance().LOGS("Vertex shader compilation failed");
 		return 0;
 	}
 
 	unsigned fragment_shader = CompileShader(GL_FRAGMENT_SHADER, fragment.get());
 	if (fragment_shader == 0) {
-		LOG("Fragment shader compilation failed");
+		Logger::Instance().LOGS("Fragment shader compilation failed");
 		glDeleteShader(fragment_shader);  // Clean up if there's an error
 		return 0;
 	}
