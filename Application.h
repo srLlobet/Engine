@@ -13,6 +13,7 @@ class ModuleDebugDraw;
 class ModuleEditor;
 class ModuleCamera;
 class ModuleTexture;
+class ModuleModel;
 
 class Application
 {
@@ -31,6 +32,7 @@ public:
     ModuleCamera* GetCamera() { return camera; }
     ModuleRenderExercise* GetRenderExercise() { return program;}
     ModuleTexture* GetTexture() { return texture; }
+    ModuleModel* GetModel() { return model; }
 
 private:
 
@@ -42,6 +44,7 @@ private:
     ModuleEditor* editor = nullptr;
     ModuleCamera* camera = nullptr;
     ModuleTexture* texture = nullptr;
+    ModuleModel* model = nullptr;
 
     std::list<Module*> modules;
 

@@ -131,6 +131,8 @@
     <ClCompile Include="ModuleTexture.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="log.cpp" />
+    <ClCompile Include="ModuleModel.cpp" />
+    <ClCompile Include="Mesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -353,6 +355,10 @@
     </ClInclude>
     <ClInclude Include="ModuleTexture.h" />
     <ClInclude Include="Logger.h" />
+    <ClInclude Include="ModuleModel.h" />
+    <ClInclude Include="C:\Users\jllob\Downloads\tiny_gltf.h" />
+    <ClInclude Include="json.hpp" />
+    <ClInclude Include="Mesh.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External Resources">
@@ -376,6 +382,9 @@
     <Filter Include="External Resources\DirectXTex">
       <UniqueIdentifier>{764ba484-954f-4f6b-9ab8-3e31cd956dcd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="External Resources\gltfFiles">
+      <UniqueIdentifier>{ccdc7afe-2443-4a81-a926-3363bdd8b8f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\MathGeoLib\Geometry\TriangleMesh_IntersectRay_SSE.inl">
@@ -395,6 +404,9 @@
     </None>
     <None Include="lib\MathGeoLib\Geometry\QuadTree.inl">
       <Filter>External Resources\MathGeoLib</Filter>
+    </None>
+    <None Include="Resources\basicTriangle.gltf">
+      <Filter>External Resources\gltfFiles</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
