@@ -22,10 +22,10 @@ ModuleModel::~ModuleModel()
 
 bool ModuleModel::Init()
 {
-	Load("basicTriangle.gltf");
+	//Load("basicTriangle.gltf");
 	return true;
 }
-
+/*
 void ModuleModel::Load(const char* assetFileName)
 {
 
@@ -59,3 +59,4 @@ void ModuleModel::Load(const char* assetFileName)
 	}
 
 }
+*/

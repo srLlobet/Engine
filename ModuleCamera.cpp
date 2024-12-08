@@ -2,6 +2,7 @@
 #include "Globals.h"
 #include "lib/MathGeoLib/Math/float3.h"
 #include "lib/MathGeoLib/Math/MathConstants.h"
+#include "lib/MathGeoLib/Math/Quat.h"
 #include "Logger.h"
 
 ModuleCamera::ModuleCamera()
@@ -18,7 +19,7 @@ bool ModuleCamera::Init()
     frustum.type = FrustumType::PerspectiveFrustum;
     //frustum.SetKind(FrustumSpaceGL, FrustumRightHanded);
 
-    frustum.pos = float3::zero;   // Camera position
+    frustum.pos = float3(0.0f, 0.0f, 0.0f);   // Camera position
     frustum.front = -float3::unitZ;
     frustum.up = float3::unitY;        // Up direction
 
@@ -77,13 +78,24 @@ void ModuleCamera::MoveUp(bool moveUp)
     RefreshViewMatrix();
 }
 
-void ModuleCamera::RotatePitch(bool rotateUp)
+void ModuleCamera::RotatePitch(float angle)
 {
+    Quat rotation = Quat::RotateAxisAngle(frustum.WorldRight(), angle);
 
+    frustum.front = rotation.Transform(frustum.front).Normalized();
+    frustum.up = rotation.Transform(frustum.up).Normalized();
+
+    RefreshViewMatrix();
 }
 
-void ModuleCamera::RotateYaw(bool rotateRight)
+void ModuleCamera::RotateYaw(float  angle)
 {
+    Quat rotation = Quat::RotateAxisAngle(float3::unitY, angle);
+
+    frustum.front = rotation.Transform(frustum.front).Normalized();
+    frustum.up = rotation.Transform(frustum.up).Normalized();
+
+    RefreshViewMatrix();
 }
 
 
@@ -106,7 +118,7 @@ void ModuleCamera::LookAt(const float3& cameraEye, const float3& cameraTarget, c
 
     float3 forward = (cameraTarget - cameraEye).Normalized();  // Camera is looking towards the target
     float3 right = Cross(forward,cameraUp).Normalized();     // Right vector
-    float3 up = Cross(right,forward).Normalized();               // Up vector
+    float3 up = Cross(right,forward);               // Up vector
     float3 position = cameraEye;
 
     // Build the view matrix

@@ -18,8 +18,8 @@ public:
 	void MoveForward(bool moveForward);
 	void MoveRight(bool moveRight);
 	void MoveUp(bool moveUp);
-	void RotatePitch(bool rotateUp );
-	void RotateYaw(bool rotateRight);
+	void RotatePitch(float angle );
+	void RotateYaw(float angle);
 
 
 

@@ -356,9 +356,11 @@
     <ClInclude Include="ModuleTexture.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="ModuleModel.h" />
-    <ClInclude Include="C:\Users\jllob\Downloads\tiny_gltf.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="C:\Users\jllob\Downloads\tiny_gltf.h">
+      <Filter>External Resources\tinygltf</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External Resources">
@@ -385,6 +387,12 @@
     <Filter Include="External Resources\gltfFiles">
       <UniqueIdentifier>{ccdc7afe-2443-4a81-a926-3363bdd8b8f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="External Resources\tinygltf">
+      <UniqueIdentifier>{453eeef3-dcbb-4f8f-b507-2a16f9bed713}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External Resources\media">
+      <UniqueIdentifier>{8c6f50c8-9e3d-4784-b6b9-64eae972a9ae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\MathGeoLib\Geometry\TriangleMesh_IntersectRay_SSE.inl">
@@ -410,6 +418,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Test-image-Baboon.png" />
+    <Image Include="Test-image-Baboon.png">
+      <Filter>External Resources\media</Filter>
+    </Image>
   </ItemGroup>
 </Project>
