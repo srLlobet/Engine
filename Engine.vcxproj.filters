@@ -356,9 +356,12 @@
     <ClInclude Include="ModuleTexture.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="ModuleModel.h" />
-    <ClInclude Include="json.hpp" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="C:\Users\jllob\Downloads\tiny_gltf.h">
+      <Filter>External Resources\tinygltf</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h" />
+    <ClInclude Include="json.hpp">
       <Filter>External Resources\tinygltf</Filter>
     </ClInclude>
   </ItemGroup>

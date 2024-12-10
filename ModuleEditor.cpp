@@ -71,6 +71,10 @@ bool ModuleEditor::cleanup()
     return false;
 }
 
+void ModuleEditor::DrawFpsGraph()
+{
+}
+
 void ModuleEditor::DrawConsole() {
     static bool isConsoleOpen = true;
 

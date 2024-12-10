@@ -21,7 +21,10 @@ public:
 	update_status Update();
 	update_status PostUpdate();
 	bool cleanup();
-
+	void DrawFpsGraph();
 	void DrawConsole();
 
+private:
+	std::vector<float> fpsBuffer;
+	const size_t maxFpsBufferSize = 100;
 };

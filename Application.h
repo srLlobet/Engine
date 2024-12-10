@@ -14,6 +14,7 @@ class ModuleEditor;
 class ModuleCamera;
 class ModuleTexture;
 class ModuleModel;
+class Time;
 
 class Application
 {
@@ -33,6 +34,8 @@ public:
     ModuleRenderExercise* GetRenderExercise() { return program;}
     ModuleTexture* GetTexture() { return texture; }
     ModuleModel* GetModel() { return model; }
+
+
 
 private:
 

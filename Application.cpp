@@ -10,6 +10,7 @@
 #include "ModuleTexture.h"
 #include "ModuleModel.h"
 #include "Logger.h"
+#include "Time.h"
 
 using namespace std;
 
@@ -27,6 +28,8 @@ Application::Application()
 	//modules.push_back(model = new ModuleModel());
 	
 }
+
+static Timer frameTimer;
 
 Application::~Application()
 {
@@ -46,18 +49,23 @@ bool Application::Init()
 	return ret;
 }
 
+
+
 update_status Application::Update()
 {
+
+	float deltaTime = frameTimer.GetDeltaTime();
+
 	update_status ret = UPDATE_CONTINUE;
 
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
-		ret = (*it)->PreUpdate();
+		ret = (*it)->PreUpdate(deltaTime);
 
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
-		ret = (*it)->Update();
+		ret = (*it)->Update(deltaTime);
 
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
-		ret = (*it)->PostUpdate();
+		ret = (*it)->PostUpdate(deltaTime);
 
 	return ret;
 }
