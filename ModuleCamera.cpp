@@ -18,9 +18,9 @@
     {
  
         frustum.type = FrustumType::PerspectiveFrustum;
-        //frustum.SetKind(FrustumSpaceGL, FrustumRightHanded);
 
-        frustum.pos = float3(0.0f, 0.0f, 1.0f);   // Camera position
+
+        frustum.pos = float3(0.0f, 2.0f, 10.0f);   // Camera position
         frustum.front = -float3::unitZ;
         frustum.up = float3::unitY;        // Up direction
 
@@ -31,6 +31,7 @@
         SetPlaneDistances(0.1f, 100.0f);
 
         RefreshViewMatrix();
+
 
 	    return true;
     }
@@ -45,7 +46,7 @@
     void ModuleCamera::RecalculateHorizontalFov(float aspectRatio)
     {
         frustum.horizontalFov = 2.f * atanf(tanf(frustum.verticalFov * 0.5f) * aspectRatio);
-        projection = frustum.ProjectionMatrix().Transposed();
+        projection = frustum.ProjectionMatrix();
     }
 
 
@@ -106,13 +107,14 @@
         frustum.nearPlaneDistance = nearPlaneDistance;
         frustum.farPlaneDistance = farPlaneDistance;
 
-        projection = frustum.ProjectionMatrix().Transposed();
+        projection = frustum.ProjectionMatrix();
     
     }
 
     void ModuleCamera::RefreshViewMatrix() {
 
-        LookAt(frustum.pos, frustum.front, frustum.up);
+       //LookAt(frustum.pos, frustum.front, frustum.up);
+        view =  frustum.ViewMatrix();
     }
 
     void ModuleCamera::LookAt(const float3& cameraEye, const float3& cameraTarget, const float3& cameraUp) {

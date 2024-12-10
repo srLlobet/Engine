@@ -1,6 +1,7 @@
 #pragma once
 #include "Module.h"
 #include <memory>
+#include <vector>
 
 class Logger;
 
@@ -25,6 +26,6 @@ public:
 	void DrawConsole();
 
 private:
-	std::vector<float> fpsBuffer;
-	const size_t maxFpsBufferSize = 100;
+	//std::vector<float> fpsBuffer;
+	//const size_t maxFpsBufferSize = 100;
 };

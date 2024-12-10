@@ -54,18 +54,18 @@ bool Application::Init()
 update_status Application::Update()
 {
 
-	float deltaTime = frameTimer.GetDeltaTime();
+	//float deltaTime = frameTimer.GetDeltaTime();
 
 	update_status ret = UPDATE_CONTINUE;
 
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
-		ret = (*it)->PreUpdate(deltaTime);
+		ret = (*it)->PreUpdate();
 
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
-		ret = (*it)->Update(deltaTime);
+		ret = (*it)->Update();
 
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
-		ret = (*it)->PostUpdate(deltaTime);
+		ret = (*it)->PostUpdate();
 
 	return ret;
 }
