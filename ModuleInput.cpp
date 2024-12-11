@@ -30,7 +30,7 @@ bool ModuleInput::Init()
 }
 
 // Called every draw update
-update_status ModuleInput::Update()
+update_status ModuleInput::Update(float deltaTime)
 {
     SDL_Event sdlEvent;
 

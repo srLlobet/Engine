@@ -117,6 +117,7 @@
         view =  frustum.ViewMatrix();
     }
 
+    //I tried
     void ModuleCamera::LookAt(const float3& cameraEye, const float3& cameraTarget, const float3& cameraUp) {
 
         float3 forward = (cameraTarget - cameraEye).Normalized();  // Camera is looking towards the target

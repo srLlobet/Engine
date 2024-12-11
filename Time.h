@@ -9,7 +9,7 @@ public:
         auto currentTime = std::chrono::high_resolution_clock::now();
         std::chrono::duration<float> deltaTime = currentTime - lastTime;
         lastTime = currentTime;
-        return deltaTime.count(); // Delta time in seconds
+        return deltaTime.count(); 
     }
 
 private:

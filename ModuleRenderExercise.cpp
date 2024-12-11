@@ -53,7 +53,7 @@ bool ModuleRenderExercise::CleanUp()
 	return false;
 }
 
-update_status ModuleRenderExercise::Update()
+update_status ModuleRenderExercise::Update(float deltaTime)
 {
     RenderVBO();
     return UPDATE_CONTINUE;

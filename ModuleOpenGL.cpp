@@ -43,7 +43,7 @@ bool ModuleOpenGL::Init()
 	return true;
 }
 
-update_status ModuleOpenGL::PreUpdate()
+update_status ModuleOpenGL::PreUpdate(float deltaTime)
 {
 
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
@@ -53,13 +53,13 @@ update_status ModuleOpenGL::PreUpdate()
 }
 
 // Called every draw update
-update_status ModuleOpenGL::Update()
+update_status ModuleOpenGL::Update(float deltaTime)
 {
 
 	return UPDATE_CONTINUE;
 }
 
-update_status ModuleOpenGL::PostUpdate()
+update_status ModuleOpenGL::PostUpdate(float deltaTime)
 {
 	SDL_GL_SwapWindow(App->GetWindow()->window);
 	return UPDATE_CONTINUE;

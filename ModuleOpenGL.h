@@ -16,9 +16,9 @@ public:
 	~ModuleOpenGL();
 
 	bool Init();
-	update_status PreUpdate();
-	update_status Update();
-	update_status PostUpdate();
+	update_status PreUpdate(float deltaTime);
+	update_status Update(float deltaTime);
+	update_status PostUpdate(float deltaTime);
 	bool CleanUp();
 	void WindowResized(unsigned width, unsigned height);
 	void* GetContext() const { return context; }

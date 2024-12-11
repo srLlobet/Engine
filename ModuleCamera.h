@@ -24,7 +24,7 @@ public:
 
 
 	void RefreshViewMatrix();
-	//void Rotate();
+
 
 	const float4x4& GetProjectionMatrix() const { return projection; }
 	const float4x4& GetViewMatrix() const { return view; };

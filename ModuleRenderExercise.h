@@ -14,7 +14,7 @@ public:
 
 	bool Init();
 	bool CleanUp();
-	update_status Update();
+	update_status Update(float deltaTime);
 
 	void RenderVBO();
 	unsigned CreateTriangleVBO();
