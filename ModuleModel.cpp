@@ -22,10 +22,10 @@ ModuleModel::~ModuleModel()
 
 bool ModuleModel::Init()
 {
-	//Load("basicTriangle.gltf");
+	Load("basicTriangle.gltf");
 	return true;
 }
-/*
+
 void ModuleModel::Load(const char* assetFileName)
 {
 
@@ -54,9 +54,8 @@ void ModuleModel::Load(const char* assetFileName)
 		for (const auto& primitive : srcMesh.primitives)
 		{
 			Mesh* mesh = new Mesh;
-			mesh->load(srcModel, srcMesh, primitive);
+			mesh->Load(model, srcMesh, primitive);
 		}
 	}
 
 }
-*/

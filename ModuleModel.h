@@ -8,6 +8,6 @@ public:
 	virtual ~ModuleModel();
 
 	bool Init();
-	//void Load(const char* assetFileName);
+	void Load(const char* assetFileName);
 };
 

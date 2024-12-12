@@ -9,10 +9,12 @@ namespace tinygltf {
     class Primitive;
 }
 
-/*
+
 class Mesh
 {
-	//void Load(const tinygltf::Model& model, const tinygltf::Mesh& srcMesh, const tinygltf::Primitive& primitive);
+public:
+	void Load(const tinygltf::Model& model, const tinygltf::Mesh& srcMesh, const tinygltf::Primitive& primitive);
+    void Render();
 private:
     GLuint vao;          // Vertex Array Object
     GLuint vbo;          // Vertex Buffer Object
@@ -21,4 +23,4 @@ private:
     GLsizei indexCount;  // Number of indices for rendering
 
 };
-*/
+
