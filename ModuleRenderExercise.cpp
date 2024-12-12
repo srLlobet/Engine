@@ -3,6 +3,7 @@
 #include "Application.h"
 #include "ModuleCamera.h"
 #include "lib/MathGeoLib/Math/MathConstants.h"
+#include "Mesh.h"
 
 
 ModuleRenderExercise::ModuleRenderExercise()
@@ -114,4 +115,18 @@ void ModuleRenderExercise::UpdateProjectionMatrix() {
 void ModuleRenderExercise::DestroyVBO(unsigned vbo)
 {
     glDeleteBuffers(1, &vbo);
+}
+
+//rendering gltf mesh
+void ModuleRenderExercise::RenderMesh(Mesh mesh) {
+    glUseProgram(program);
+
+
+    glBindBuffer(GL_ARRAY_BUFFER, mesh.GetVBO());
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3 + sizeof(float) * 2, (void*)0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 3 + sizeof(float) * 2, (void*)(sizeof(float) * 3));
+    glDrawArrays(GL_TRIANGLES, 0, mesh.GetVertexCount());
+
 }

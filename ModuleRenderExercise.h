@@ -3,6 +3,8 @@
 #include "Module.h"
 #include "lib/MathGeoLib/Math/float4x4.h"
 
+class Mesh;
+
 class ModuleRenderExercise : public Module
 {
 public:
@@ -21,6 +23,7 @@ public:
 	void DestroyVBO(unsigned vbo);
 	void UpdateViewMatrix();
 	void UpdateProjectionMatrix();
+	void RenderMesh(Mesh mesh);
 
 private:
 	unsigned vbo;

@@ -5,6 +5,7 @@
 #include "ModuleRenderExercise.h"
 #include "imgui_impl_sdl2.h"
 #include "Logger.h"
+#include "Globals.h"
 
 ModuleInput::ModuleInput()
 {}

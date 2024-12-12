@@ -1,6 +1,8 @@
 #include "ModuleModel.h"
 #include "Globals.h"
 #include "Mesh.h"
+#include "Application.h"
+#include "ModuleRenderExercise.h"
 #define TINYGLTF_NO_STB_IMAGE_WRITE
 #define TINYGLTF_NO_STB_IMAGE
 #define TINYGLTF_NO_EXTERNAL_IMAGE
@@ -55,6 +57,7 @@ void ModuleModel::Load(const char* assetFileName)
 		{
 			Mesh* mesh = new Mesh;
 			mesh->Load(model, srcMesh, primitive);
+			App->GetRenderExercise->RenderMesh(mesh);
 		}
 	}
 

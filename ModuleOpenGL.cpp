@@ -131,20 +131,24 @@ GLuint ModuleOpenGL::LoadTextureToGPU(const wchar_t* filePath) {
 	default:
 		assert(false && "Unsupported format");
 	}
+	if (metadata.mipLevels > 1) {
 
-	glTexImage2D(
-		GL_TEXTURE_2D,
-		0, // level of detail, higher 0
-		internalFormat, // Internal format
-		metadata.width, // Width
-		metadata.height, // Height
-		0, // border size (0)
-		format, // data format
-		GL_UNSIGNED_BYTE, // Type
-		image.GetPixels() // Pointer to the pixel data
-	);
+	}
+	else {
+		glTexImage2D(
+			GL_TEXTURE_2D,
+			0, // level of detail, higher 0
+			internalFormat, // Internal format
+			metadata.width, // Width
+			metadata.height, // Height
+			0, // border size (0)
+			format, // data format
+			GL_UNSIGNED_BYTE, // Type
+			image.GetPixels() // Pointer to the pixel data
+		);
 
-	glGenerateMipmap(GL_TEXTURE_2D);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
 
 	// Unbind the texture
 	glBindTexture(GL_TEXTURE_2D, 0);

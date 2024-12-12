@@ -290,6 +290,8 @@
     <ClInclude Include="Time.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Game\default_fragment.glsl" />
+    <None Include="Game\default_vertex.glsl" />
     <None Include="lib\MathGeoLib\Geometry\KDTree.inl" />
     <None Include="lib\MathGeoLib\Geometry\QuadTree.inl" />
     <None Include="lib\MathGeoLib\Geometry\TriangleMesh_IntersectRay_AVX.inl" />
