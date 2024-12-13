@@ -3,6 +3,9 @@
 #include "SDL.h"
 #include <GL/glew.h>
 #include "lib/MathGeoLib/Math/float3.h"
+#include "Application.h"
+#include "ModuleRenderExercise.h"
+
 
 
 /*
@@ -19,8 +22,8 @@ void Mesh::Load(const tinygltf::Model& model, const tinygltf::Mesh& mesh, const 
 		const tinygltf::BufferView& posView = model.bufferViews[posAcc.bufferView]; //defines byte offset, stride and buffer
 		const tinygltf::Buffer& posBuffer = model.buffers[posView.buffer];
 		const unsigned char* bufferPos = &(posBuffer.data[posAcc.byteOffset + posView.byteOffset]); //position data begins here
-
-		const auto& itTexCoord = primitive.attributes.find("TEXCOORD_0");
+		
+		const auto& itTexCoord = primitive.attributes.find("TEXCOORD_0"); //repeat for textures
 		if (itTexCoord != primitive.attributes.end()) {
 			const tinygltf::Accessor& texAcc = model.accessors[itTexCoord->second];
 			const tinygltf::BufferView& texView = model.bufferViews[texAcc.bufferView];
@@ -28,6 +31,7 @@ void Mesh::Load(const tinygltf::Model& model, const tinygltf::Mesh& mesh, const 
 			const unsigned char* bufferTexCoord = &(texBuffer.data[texAcc.byteOffset + texView.byteOffset]);
 
 			// Combine positions and texture coordinates - interleaved format
+
 			for (size_t i = 0; i < posAcc.count; ++i) {
 				Vertex vertex;
 				memcpy(vertex.position, bufferPos, sizeof(float) * 3);   // Copy position
@@ -39,27 +43,24 @@ void Mesh::Load(const tinygltf::Model& model, const tinygltf::Mesh& mesh, const 
 			}
 		}
 
+		if (primitive.indices > 0) {
+
+		}
+
 		glGenBuffers(1, &vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
+		vertexCount = vertices.size();
+
 		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
 		float3* ptr = reinterpret_cast<float3*>(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));
+		
 		for (size_t i = 0; i < posAcc.count; ++i)
 		{
 			ptr[i] = *reinterpret_cast<const float3*>(bufferPos);
 			bufferPos += posView.byteStride;
 		}
+		
 		glUnmapBuffer(GL_ARRAY_BUFFER);
 	}
 }
-/*
-void Mesh::Render()
-{
-	glUseProgram(program);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3 + sizeof(float) * 2, (void*)0);
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 3 + sizeof(float) * 2, (void*)(sizeof(float) * 3));
-	glDrawArrays(GL_TRIANGLES, 0, vertexCount);
-}
-*/

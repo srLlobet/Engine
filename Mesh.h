@@ -17,13 +17,22 @@ struct Vertex {
 class Mesh
 {
 public:
+<<<<<<< HEAD
 	//void Load(const tinygltf::Model& model, const tinygltf::Mesh& srcMesh, const tinygltf::Primitive& primitive);
     //void Render();
+=======
+	void Load(const tinygltf::Model& model, const tinygltf::Mesh& srcMesh, const tinygltf::Primitive& primitive);
+    void Render();
+    GLuint GetVBO() { return vbo; }
+    GLsizei GetVertexCount() { return vertexCount;  }
+
+>>>>>>> test
 private:
     GLuint vao;          // Vertex Array Object
     GLuint vbo;          // Vertex Buffer Object
     GLuint ebo;          // Element Buffer Object
-    int materialIndex;   // Material index from tinygltf
+    int vertexCount;
+    GLsizei materialIndex;   // Material index from tinygltf
     GLsizei indexCount;  // Number of indices for rendering
 
 };

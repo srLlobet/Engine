@@ -3,7 +3,11 @@
 #include "Module.h"
 #include "lib/MathGeoLib/Math/float4x4.h"
 
+<<<<<<< HEAD
 using GLuint = unsigned int;
+=======
+class Mesh;
+>>>>>>> test
 
 class ModuleRenderExercise : public Module
 {
@@ -23,6 +27,7 @@ public:
 	void DestroyVBO(unsigned vbo);
 	void UpdateViewMatrix();
 	void UpdateProjectionMatrix();
+	void RenderMesh(Mesh mesh);
 
 private:
 	unsigned vbo;

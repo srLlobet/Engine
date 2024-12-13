@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Application.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleOpenGL.cpp" />
@@ -133,6 +132,7 @@
     <ClCompile Include="log.cpp" />
     <ClCompile Include="ModuleModel.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Application.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -387,14 +387,17 @@
     <Filter Include="External Resources\DirectXTex">
       <UniqueIdentifier>{764ba484-954f-4f6b-9ab8-3e31cd956dcd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="External Resources\gltfFiles">
-      <UniqueIdentifier>{ccdc7afe-2443-4a81-a926-3363bdd8b8f9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="External Resources\tinygltf">
       <UniqueIdentifier>{453eeef3-dcbb-4f8f-b507-2a16f9bed713}</UniqueIdentifier>
     </Filter>
     <Filter Include="External Resources\media">
       <UniqueIdentifier>{8c6f50c8-9e3d-4784-b6b9-64eae972a9ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External Resources\media\gltfFiles">
+      <UniqueIdentifier>{ccdc7afe-2443-4a81-a926-3363bdd8b8f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External Resources\shaders">
+      <UniqueIdentifier>{357b196b-56ab-4fdf-bf49-8b48c14013b4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -417,7 +420,13 @@
       <Filter>External Resources\MathGeoLib</Filter>
     </None>
     <None Include="Resources\basicTriangle.gltf">
-      <Filter>External Resources\gltfFiles</Filter>
+      <Filter>External Resources\media\gltfFiles</Filter>
+    </None>
+    <None Include="Game\default_fragment.glsl">
+      <Filter>External Resources\shaders</Filter>
+    </None>
+    <None Include="Game\default_vertex.glsl">
+      <Filter>External Resources\shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
