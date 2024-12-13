@@ -4,11 +4,8 @@
 #include <GL/glew.h>
 #include "lib/MathGeoLib/Math/float3.h"
 
-struct Vertex {
-	float position[3];     
-	float texCoord[2];      
-};
 
+/*
 void Mesh::Load(const tinygltf::Model& model, const tinygltf::Mesh& mesh, const tinygltf::Primitive& primitive)
 {
 	std::vector<Vertex> vertices;

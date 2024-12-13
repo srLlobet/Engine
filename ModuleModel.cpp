@@ -54,7 +54,7 @@ void ModuleModel::Load(const char* assetFileName)
 		for (const auto& primitive : srcMesh.primitives)
 		{
 			Mesh* mesh = new Mesh;
-			mesh->Load(model, srcMesh, primitive);
+			//mesh->Load(model, srcMesh, primitive);
 		}
 	}
 

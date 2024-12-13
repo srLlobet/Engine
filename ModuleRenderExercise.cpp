@@ -2,6 +2,7 @@
 #include "ModuleProgram.h"
 #include "Application.h"
 #include "ModuleCamera.h"
+#include "ModuleOpenGL.h"
 #include "lib/MathGeoLib/Math/MathConstants.h"
 
 
@@ -22,11 +23,13 @@ bool ModuleRenderExercise::Init()
     viewLoc = glGetUniformLocation(program, "view");
     projectionLoc = glGetUniformLocation(program, "projection");
 
+    textureID = App->GetOpenGL()->LoadTextureToGPU(L"Test-image-Baboon.png");
 
     if (program == 0) {
         LOG("Failed to create program");
         return false;
     }
+
 
     vbo = CreateTriangleVBO();
 
@@ -36,11 +39,11 @@ bool ModuleRenderExercise::Init()
         return false;
     }
 
-    model = float4x4::identity;
-        /*float4x4::FromTRS(float3(2.0f, 0.0f, 0.0f),
-        float4x4::RotateZ(pi / 4.0f),
-        float3(2.0f, 1.0f, 1.0f)); // No transformation
-        */
+
+    model = float4x4::FromTRS(float3(0.0f, 0.0f, -2.0f),
+        float4x4::identity,
+        float3(1.0f, 1.0f, 1.0f)); // No transformation
+        
 
 
 	return true;
@@ -64,6 +67,8 @@ void ModuleRenderExercise::RenderVBO()
 
     glUseProgram(program);
 
+    glActiveTexture(GL_TEXTURE5);
+    glBindTexture(GL_TEXTURE_2D, textureID);
 
 
     glUniformMatrix4fv(modelLoc, 1, GL_TRUE, &model[0][0]);
@@ -75,19 +80,38 @@ void ModuleRenderExercise::RenderVBO()
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
     glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    //glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(float) * 3 * 3)); // buffer offset
+    
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
     // 1 triangle to draw = 3 vertices 
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 unsigned ModuleRenderExercise::CreateTriangleVBO()
 {
     { //{ -0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 0.5f, 0.0f };
-        float vtx_data[] = { -1.0f, -1.0f, -2.0f, 1.0f, -1.0f, -2.0f, 0.0f, 1.0f, -2.0f };
+       // float vtx_data[] = { -1.0f, -1.0f, -2.0f, 1.0f, -1.0f, -2.0f, 0.0f, 1.0f, -2.0f };
+
+        float vtx_data[] = {
+            // Positions       // UVs
+            -1.0f, -1.0f, -2.0f, 0.0f, 1.0f, // Bottom-left
+             1.0f, -1.0f, -2.0f, 1.0f, 1.0f, // Bottom-right
+             1.0f,  1.0f, -2.0f, 1.0f, 0.0f, // Top-right
+
+            -1.0f, -1.0f, -2.0f, 0.0f, 1.0f, // Bottom-left
+             1.0f,  1.0f, -2.0f, 1.0f, 0.0f, // Top-right
+            -1.0f,  1.0f, -2.0f, 0.0f, 0.0f  // Top-left
+        };
         unsigned vbo;
         glGenBuffers(1, &vbo);
         glBindBuffer(GL_ARRAY_BUFFER, vbo);  // set vbo active 

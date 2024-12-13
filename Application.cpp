@@ -14,6 +14,11 @@
 
 using namespace std;
 
+extern "C" {
+	_declspec(dllexport) DWORD NvOptimusEnablement = 1;
+	_declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
+}
+
 Application::Application()
 {	
 	// Order matters: they will Init/start/update in this order
@@ -25,7 +30,7 @@ Application::Application()
 	modules.push_back(debug = new ModuleDebugDraw());
 	modules.push_back(editor = new ModuleEditor());
 	modules.push_back(texture = new ModuleTexture());
-	//modules.push_back(model = new ModuleModel());
+	modules.push_back(model = new ModuleModel());
 	
 }
 

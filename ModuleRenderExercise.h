@@ -3,6 +3,8 @@
 #include "Module.h"
 #include "lib/MathGeoLib/Math/float4x4.h"
 
+using GLuint = unsigned int;
+
 class ModuleRenderExercise : public Module
 {
 public:
@@ -30,6 +32,7 @@ private:
 	float4x4 view;
 	float4x4 projection;
 
+	GLuint textureID;
 	int modelLoc;
 	int viewLoc;
 	int projectionLoc;

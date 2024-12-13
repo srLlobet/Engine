@@ -53,9 +53,9 @@ update_status ModuleInput::Update(float deltaTime)
                     App->GetCamera()->MoveForward(true);  //  forward
                 else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_S)
                     App->GetCamera()->MoveForward(false); // camera backward
-                else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_A)
-                    App->GetCamera()->MoveRight(true); // camera left
                 else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_D)
+                    App->GetCamera()->MoveRight(true); // camera left
+                else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_A)
                     App->GetCamera()->MoveRight(false); // camera right
                 else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_Q)
                     App->GetCamera()->MoveUp(true); // camera up

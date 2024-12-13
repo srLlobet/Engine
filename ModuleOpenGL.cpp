@@ -39,7 +39,7 @@ bool ModuleOpenGL::Init()
 	glEnable(GL_CULL_FACE); // Enable cull backward faces
 	glFrontFace(GL_CCW); // Front faces will be counter clockwise
 
-	GLuint textureID = LoadTextureToGPU(L"Test-image-Baboon.png");
+	
 	return true;
 }
 
@@ -102,10 +102,6 @@ GLuint ModuleOpenGL::LoadTextureToGPU(const wchar_t* filePath) {
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);  // Wrap mode S
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);  // Wrap mode T
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // Minification filter
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);   // Magnification filter
 
 	GLenum internalFormat, format, type;
 
@@ -131,20 +127,43 @@ GLuint ModuleOpenGL::LoadTextureToGPU(const wchar_t* filePath) {
 	default:
 		assert(false && "Unsupported format");
 	}
+	
+	if (metadata.mipLevels > 1) {
+		for (size_t i = 0; i < image.GetMetadata().mipLevels; ++i)
+		{
+			const DirectX::Image* mip = image.GetImage(i, 0, 0);
+			glTexImage2D(GL_TEXTURE_2D, i, internalFormat, mip->width, mip->height, 0, format, type, mip->pixels);
+		}
 
-	glTexImage2D(
-		GL_TEXTURE_2D,
-		0, // level of detail, higher 0
-		internalFormat, // Internal format
-		metadata.width, // Width
-		metadata.height, // Height
-		0, // border size (0)
-		format, // data format
-		GL_UNSIGNED_BYTE, // Type
-		image.GetPixels() // Pointer to the pixel data
-	);
+	}
+	else {
+		glTexImage2D(
+			GL_TEXTURE_2D,
+			0, // level of detail, higher 0
+			internalFormat, // Internal format
+			metadata.width, // Width
+			metadata.height, // Height
+			0, // border size (0)
+			format, // data format
+			GL_UNSIGNED_BYTE, // Type
+			image.GetPixels() // Pointer to the pixel data
+		);
 
-	glGenerateMipmap(GL_TEXTURE_2D);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);  // Wrap mode S
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);  // Wrap mode T
+
+
+	if (metadata.mipLevels > 1) {
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // Trilinear filtering
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0); // base mipmap level
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, metadata.mipLevels - 1); // max mipmap level
+	}
+	else {
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Linear filtering without mipmaps
+	}
 
 	// Unbind the texture
 	glBindTexture(GL_TEXTURE_2D, 0);
