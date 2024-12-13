@@ -3,11 +3,11 @@
 #include "Module.h"
 #include "lib/MathGeoLib/Math/float4x4.h"
 
-<<<<<<< HEAD
+
 using GLuint = unsigned int;
-=======
+
 class Mesh;
->>>>>>> test
+
 
 class ModuleRenderExercise : public Module
 {

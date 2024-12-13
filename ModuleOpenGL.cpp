@@ -127,7 +127,7 @@ GLuint ModuleOpenGL::LoadTextureToGPU(const wchar_t* filePath) {
 	default:
 		assert(false && "Unsupported format");
 	}
-<<<<<<< HEAD
+
 	
 	if (metadata.mipLevels > 1) {
 		for (size_t i = 0; i < image.GetMetadata().mipLevels; ++i)
@@ -135,11 +135,8 @@ GLuint ModuleOpenGL::LoadTextureToGPU(const wchar_t* filePath) {
 			const DirectX::Image* mip = image.GetImage(i, 0, 0);
 			glTexImage2D(GL_TEXTURE_2D, i, internalFormat, mip->width, mip->height, 0, format, type, mip->pixels);
 		}
-=======
-	if (metadata.mipLevels > 1) {
->>>>>>> test
-
 	}
+
 	else {
 		glTexImage2D(
 			GL_TEXTURE_2D,
@@ -155,7 +152,7 @@ GLuint ModuleOpenGL::LoadTextureToGPU(const wchar_t* filePath) {
 
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
-<<<<<<< HEAD
+
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);  // Wrap mode S
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);  // Wrap mode T
@@ -169,8 +166,6 @@ GLuint ModuleOpenGL::LoadTextureToGPU(const wchar_t* filePath) {
 	else {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Linear filtering without mipmaps
 	}
-=======
->>>>>>> test
 
 	// Unbind the texture
 	glBindTexture(GL_TEXTURE_2D, 0);

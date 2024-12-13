@@ -24,6 +24,7 @@ public:
 	void* GetContext() const { return context; }
 
 	GLuint LoadTextureToGPU(const wchar_t* filePath);
+	
 private:
 	void* context;
 };
