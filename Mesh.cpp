@@ -53,7 +53,16 @@ void Mesh::Load(const tinygltf::Model& model, const tinygltf::Mesh& mesh, const 
 				memcpy(vertex.texCoord, defaultTexCoord, sizeof(float) * 2);
 			}
 			vertices.push_back(vertex);
-			bufferPos += posView.byteStride;
+
+			// check if bytestride is provided
+
+			if (posView.byteStride == 0) {
+				bufferPos += sizeof(float) * 3; 
+			}
+			else {
+				bufferPos += posView.byteStride;
+			}
+			
 
 		}
 		
@@ -65,7 +74,7 @@ void Mesh::Load(const tinygltf::Model& model, const tinygltf::Mesh& mesh, const 
 
 		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
 
-		if (primitive.indices > 0) {
+		if (primitive.indices >= 0) {
 
 			glGenBuffers(1, &ebo);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
@@ -125,6 +134,7 @@ void Mesh::Load(const tinygltf::Model& model, const tinygltf::Mesh& mesh, const 
 
 			indexCount = indAcc.count;
 		}
+		
 
 		/*
 		float3* ptr = reinterpret_cast<float3*>(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));

@@ -2,7 +2,7 @@
 
 #include "Module.h"
 #include "lib/MathGeoLib/Math/float4x4.h"
-
+#include <vector>
 
 using GLuint = unsigned int;
 
@@ -27,11 +27,17 @@ public:
 	void DestroyVBO(unsigned vbo);
 	void UpdateViewMatrix();
 	void UpdateProjectionMatrix();
+	void RenderAllMeshes();
 	void RenderMesh(Mesh mesh);
+	void AddMesh(Mesh* mesh);
+	void ClearMeshes();
 
 private:
+
 	unsigned vbo;
 	unsigned program;
+
+	std::vector<Mesh*> meshes;
 
 	float4x4 model;
 	float4x4 view;

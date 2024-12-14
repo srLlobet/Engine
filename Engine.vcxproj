@@ -290,6 +290,8 @@
     <ClInclude Include="Time.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Game\Box.gltf" />
+    <None Include="Game\Box0.bin" />
     <None Include="Game\default_fragment.glsl" />
     <None Include="Game\default_vertex.glsl" />
     <None Include="lib\MathGeoLib\Geometry\KDTree.inl" />

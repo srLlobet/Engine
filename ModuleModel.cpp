@@ -24,7 +24,8 @@ ModuleModel::~ModuleModel()
 
 bool ModuleModel::Init()
 {
-	Load("basicTriangle.gltf");
+	//Load("basicTriangle.gltf");
+	Load("Box.gltf");
 	return true;
 }
 
@@ -58,7 +59,7 @@ void ModuleModel::Load(const char* assetFileName)
 			Mesh* mesh = new Mesh;
 
 			mesh->Load(model, srcMesh, primitive);
-			App->GetRenderExercise()->RenderMesh(*mesh);
+			App->GetRenderExercise()->AddMesh(mesh);
 		}
 	}
 
