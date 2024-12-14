@@ -13,7 +13,7 @@ class ModuleOpenGL : public Module
 {
 public:
 	ModuleOpenGL();
-	~ModuleOpenGL();
+	virtual ~ModuleOpenGL();
 
 	bool Init();
 	update_status PreUpdate(float deltaTime);

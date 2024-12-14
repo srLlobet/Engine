@@ -92,22 +92,6 @@ void ModuleRenderExercise::RenderMesh(const Mesh& mesh) {
     glDrawElements(GL_TRIANGLES, mesh.GetIndexCount(), GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);
 
-    /*
-    glBindBuffe r(GL_ARRAY_BUFFER, mesh.GetVBO());
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.GetEBO());
-
-    glEnableVertexAttribArray(0);
-    //glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0); // 3 floats per vertex (position)
-    glEnableVertexAttribArray(1);
-    //glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(float) * 3 * mesh.GetVertexCount()));
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float))); // Offset to UVs
-
-    glDrawElements(GL_TRIANGLES, mesh.GetIndexCount(), GL_UNSIGNED_INT, 0);
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    */
 }
 
 void ModuleRenderExercise::AddMesh(Mesh* mesh)

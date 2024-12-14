@@ -8,7 +8,7 @@ class ModuleInput : public Module
 public:
 	
 	ModuleInput();
-	~ModuleInput();
+	virtual ~ModuleInput();
 
 	bool Init();
 	update_status Update(float deltaTime);

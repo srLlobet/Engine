@@ -8,7 +8,11 @@
 #include "ModuleOpenGL.h"
 
 
+Mesh::Mesh() {
+}
 
+Mesh::~Mesh() {
+}
 
 void Mesh::Load(const tinygltf::Model& model, const tinygltf::Mesh& mesh, const tinygltf::Primitive& primitive)
 {
@@ -34,15 +38,7 @@ void Mesh::Load(const tinygltf::Model& model, const tinygltf::Mesh& mesh, const 
 			const tinygltf::Accessor& texAcc = model.accessors[itTexCoord->second];
 			SDL_assert(posAcc.type == TINYGLTF_TYPE_VEC3);
 			SDL_assert(posAcc.componentType == GL_FLOAT);
-			/*
-			if (posAcc.count != texAcc.count) {
-				LOG("MISALIGNED", posAcc.count);
-			}
-			else {
-				LOG("Position and texture coordinate counts match: ", posAcc.count);
-				
-			}
-			*/
+
 			const tinygltf::BufferView& texView = model.bufferViews[texAcc.bufferView];
 			const tinygltf::Buffer& texBuffer = model.buffers[texView.buffer];
 			bufferTexCoord = &(texBuffer.data[texAcc.byteOffset + texView.byteOffset]);
@@ -76,9 +72,7 @@ void Mesh::Load(const tinygltf::Model& model, const tinygltf::Mesh& mesh, const 
 				bufferPos += posView.byteStride;
 			}
 			
-
 		}
-		
 
 		glGenBuffers(1, &vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -145,7 +139,6 @@ void Mesh::Load(const tinygltf::Model& model, const tinygltf::Mesh& mesh, const 
 		// Bind EBO
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 
-		// Unbind VAO 
 		glBindVertexArray(0);
 	}
 
@@ -173,12 +166,8 @@ void Mesh::LoadMaterials(const tinygltf::Model &srcModel, int materialIndex)
 		}
 	}
 
-	
-	// Metallic factor and roughness factor
-
 	material.metallicFactor = srcMaterial.pbrMetallicRoughness.metallicFactor;
 	//material.roughnessFactor = srcMaterial.pbrMetallicRoughness.roughnessFactor;
-
 
 }
 

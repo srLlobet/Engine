@@ -292,12 +292,6 @@
   <ItemGroup>
     <None Include="Game\BakerHouse.bin" />
     <None Include="Game\BakerHouse.gltf" />
-    <None Include="Game\Box.gltf" />
-    <None Include="Game\Box0.bin" />
-    <None Include="Game\BoxInterleaved.bin" />
-    <None Include="Game\BoxInterleaved.gltf" />
-    <None Include="Game\BoxTextured.gltf" />
-    <None Include="Game\BoxTextured0.bin" />
     <None Include="Game\default_fragment.glsl" />
     <None Include="Game\default_vertex.glsl" />
     <None Include="lib\MathGeoLib\Geometry\KDTree.inl" />
@@ -306,12 +300,9 @@
     <None Include="lib\MathGeoLib\Geometry\TriangleMesh_IntersectRay_CPP.inl" />
     <None Include="lib\MathGeoLib\Geometry\TriangleMesh_IntersectRay_SSE.inl" />
     <None Include="lib\MathGeoLib\Math\Matrix.inl" />
-    <None Include="Resources\basicTriangle.gltf" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Game\Baker_house.png" />
-    <Image Include="Game\CesiumLogoFlat.png" />
-    <Image Include="Test-image-Baboon.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -419,32 +419,11 @@
     <None Include="lib\MathGeoLib\Geometry\QuadTree.inl">
       <Filter>External Resources\MathGeoLib</Filter>
     </None>
-    <None Include="Resources\basicTriangle.gltf">
-      <Filter>External Resources\media\gltfFiles</Filter>
-    </None>
     <None Include="Game\default_fragment.glsl">
       <Filter>External Resources\shaders</Filter>
     </None>
     <None Include="Game\default_vertex.glsl">
       <Filter>External Resources\shaders</Filter>
-    </None>
-    <None Include="Game\Box.gltf">
-      <Filter>External Resources\media\gltfFiles</Filter>
-    </None>
-    <None Include="Game\Box0.bin">
-      <Filter>External Resources\media\gltfFiles</Filter>
-    </None>
-    <None Include="Game\BoxInterleaved.bin">
-      <Filter>External Resources\media\gltfFiles</Filter>
-    </None>
-    <None Include="Game\BoxInterleaved.gltf">
-      <Filter>External Resources\media\gltfFiles</Filter>
-    </None>
-    <None Include="Game\BoxTextured.gltf">
-      <Filter>External Resources\media\gltfFiles</Filter>
-    </None>
-    <None Include="Game\BoxTextured0.bin">
-      <Filter>External Resources\media\gltfFiles</Filter>
     </None>
     <None Include="Game\BakerHouse.bin">
       <Filter>External Resources\media\gltfFiles</Filter>
@@ -454,12 +433,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Test-image-Baboon.png">
-      <Filter>External Resources\media</Filter>
-    </Image>
-    <Image Include="Game\CesiumLogoFlat.png">
-      <Filter>External Resources\media\gltfFiles</Filter>
-    </Image>
     <Image Include="Game\Baker_house.png">
       <Filter>External Resources\media\gltfFiles</Filter>
     </Image>

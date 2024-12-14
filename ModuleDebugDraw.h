@@ -14,7 +14,7 @@ class ModuleDebugDraw : public Module
 public:
 
     ModuleDebugDraw();
-    ~ModuleDebugDraw();
+    virtual ~ModuleDebugDraw();
 
 	bool Init();
 	update_status Update(float deltaTime);

@@ -81,9 +81,9 @@ update_status ModuleInput::Update(float deltaTime)
 
                 if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT)) {
 
-                    const float mouseSensitivity = 0.001f; // Adjust as needed
-                    float deltaX = sdlEvent.motion.xrel; // Horizontal motion
-                    float deltaY = sdlEvent.motion.yrel; // Vertical motion
+                    const float mouseSensitivity = 0.001f; 
+                    float deltaX = sdlEvent.motion.xrel; 
+                    float deltaY = sdlEvent.motion.yrel; 
 
                     App->GetCamera()->RotateYaw(-deltaX * mouseSensitivity); // Inverted for right-to-left movement
                     App->GetCamera()->RotatePitch(-deltaY * mouseSensitivity); // Inverted for upward movement

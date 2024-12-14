@@ -12,8 +12,6 @@ namespace tinygltf {
     class Primitive;
 }
 
-
-
 struct Vertex {
     float position[3];
     float texCoord[2];
@@ -30,6 +28,9 @@ struct Material {
 class Mesh
 {
 public:
+
+    Mesh();
+    virtual ~Mesh();
 
 	void Load(const tinygltf::Model& model, const tinygltf::Mesh& srcMesh, const tinygltf::Primitive& primitive);
     void LoadMaterials(const tinygltf::Model& model, int materialIndex);

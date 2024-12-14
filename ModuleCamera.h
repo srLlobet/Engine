@@ -9,12 +9,12 @@ class ModuleCamera : public Module
 {
 public:
 	ModuleCamera();
-	~ModuleCamera();
+	virtual ~ModuleCamera();
 	
 	bool Init();
-	void SetFOV(float verticalFov, float aspectRatio); //… should set the horizontal FOV keeping the aspect ratio
-	void SetPlaneDistances(float nearPlane, float farPlane);  // Position() / Orientation() / LookAt(x, y, z)
-	void RecalculateHorizontalFov(float aspectRatio); //… should change the vertical FOV to meet the new aspect ratio
+	void SetFOV(float verticalFov, float aspectRatio); // set the horizontal FOV keeping the aspect ratio
+	void SetPlaneDistances(float nearPlane, float farPlane); 
+	void RecalculateHorizontalFov(float aspectRatio); // change the vertical FOV to meet the new aspect ratio
 	void MoveForward(bool moveForward);
 	void MoveRight(bool moveRight);
 	void MoveUp(bool moveUp);
