@@ -16,6 +16,7 @@ void Mesh::Load(const tinygltf::Model& model, const tinygltf::Mesh& mesh, const 
 	const float defaultTexCoord[2] = { 0.0f, 0.0f };
 
 	const auto& itPos = primitive.attributes.find("POSITION"); //holds iterator position pointing for the POSITION key
+	
 	if (itPos != primitive.attributes.end())
 	{
 		const tinygltf::Accessor& posAcc = model.accessors[itPos->second]; //gives index of position accessor
@@ -31,15 +32,26 @@ void Mesh::Load(const tinygltf::Model& model, const tinygltf::Mesh& mesh, const 
 
 		if (itTexCoord != primitive.attributes.end()) {
 			const tinygltf::Accessor& texAcc = model.accessors[itTexCoord->second];
+			SDL_assert(posAcc.type == TINYGLTF_TYPE_VEC3);
+			SDL_assert(posAcc.componentType == GL_FLOAT);
+			/*
+			if (posAcc.count != texAcc.count) {
+				LOG("MISALIGNED", posAcc.count);
+			}
+			else {
+				LOG("Position and texture coordinate counts match: ", posAcc.count);
+				
+			}
+			*/
 			const tinygltf::BufferView& texView = model.bufferViews[texAcc.bufferView];
 			const tinygltf::Buffer& texBuffer = model.buffers[texView.buffer];
-			const unsigned char* bufferTexCoord = &(texBuffer.data[texAcc.byteOffset + texView.byteOffset]);
-			texStride = texView.byteStride;
+			bufferTexCoord = &(texBuffer.data[texAcc.byteOffset + texView.byteOffset]);
+			texStride =  texView.byteStride ? texView.byteStride : sizeof(float) * 2;
 		}
 		
 		// Combine positions and texture coordinates - interleaved format
 		// if no textures, fill with defaultTexCoord
-
+	
 		for (size_t i = 0; i < posAcc.count; ++i) {
 			Vertex vertex;
 

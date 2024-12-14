@@ -25,7 +25,10 @@ ModuleModel::~ModuleModel()
 bool ModuleModel::Init()
 {
 	//Load("basicTriangle.gltf");
-	Load("Box.gltf");
+	//Load("Box.gltf");
+	//Load("BoxInterleaved.gltf");
+	//Load("BoxTextured.gltf");
+	Load("BakerHouse.gltf");
 	return true;
 }
 

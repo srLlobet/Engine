@@ -34,7 +34,7 @@ public:
 	
 private:
 
-	unsigned vbo;
+
 	unsigned program;
 
 	std::vector<Mesh*> meshes;
