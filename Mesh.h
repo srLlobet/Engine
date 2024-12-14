@@ -18,13 +18,14 @@ class Mesh
 {
 public:
 
-	//void Load(const tinygltf::Model& model, const tinygltf::Mesh& srcMesh, const tinygltf::Primitive& primitive);
-    //void Render();
+	void Load(const tinygltf::Model& model, const tinygltf::Mesh& srcMesh, const tinygltf::Primitive& primitive);
 
-	//void Load(const tinygltf::Model& model, const tinygltf::Mesh& srcMesh, const tinygltf::Primitive& primitive);
-    void Render();
+
     GLuint GetVBO() { return vbo; }
-    GLsizei GetVertexCount() { return vertexCount;  }
+    GLuint GetEBO() { return ebo; }
+    int GetVertexCount() { return vertexCount;  }
+    GLsizei GetIndexCount() { return indexCount; }
+
 
 
 private:

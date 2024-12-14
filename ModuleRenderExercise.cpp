@@ -145,12 +145,14 @@ void ModuleRenderExercise::DestroyVBO(unsigned vbo)
 void ModuleRenderExercise::RenderMesh(Mesh mesh) {
     glUseProgram(program);
 
-
     glBindBuffer(GL_ARRAY_BUFFER, mesh.GetVBO());
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.GetEBO());
+
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3 + sizeof(float) * 2, (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 3 + sizeof(float) * 2, (void*)(sizeof(float) * 3));
-    glDrawArrays(GL_TRIANGLES, 0, mesh.GetVertexCount());
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(float) * 3 * mesh.GetVertexCount()));
+
+    glDrawElements(GL_TRIANGLES, mesh.GetIndexCount(), GL_UNSIGNED_INT, 0);
 
 }

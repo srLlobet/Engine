@@ -108,6 +108,7 @@
         frustum.farPlaneDistance = farPlaneDistance;
 
         projection = frustum.ProjectionMatrix();
+
     
     }
 

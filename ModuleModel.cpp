@@ -57,8 +57,8 @@ void ModuleModel::Load(const char* assetFileName)
 		{
 			Mesh* mesh = new Mesh;
 
-			//mesh->Load(model, srcMesh, primitive);
-			//App->GetRenderExercise->RenderMesh(mesh);
+			mesh->Load(model, srcMesh, primitive);
+			App->GetRenderExercise()->RenderMesh(*mesh);
 		}
 	}
 
