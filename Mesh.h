@@ -1,7 +1,10 @@
 #pragma once
 
+#include <string>
+
 using GLuint = unsigned int;
 using GLsizei = int;
+using GLfloat = float;
 
 namespace tinygltf {
     class Model;
@@ -9,9 +12,19 @@ namespace tinygltf {
     class Primitive;
 }
 
+
+
 struct Vertex {
     float position[3];
     float texCoord[2];
+};
+
+//materia properties
+struct Material {
+    GLuint baseColorTextureID = 0;
+    GLfloat baseColorFactor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };  // Base color RGBA
+    GLfloat metallicFactor = 0.0f;    // Metallic factor
+    GLfloat roughnessFactor = 0.0f;   // Roughness factor
 };
 
 class Mesh
@@ -19,12 +32,17 @@ class Mesh
 public:
 
 	void Load(const tinygltf::Model& model, const tinygltf::Mesh& srcMesh, const tinygltf::Primitive& primitive);
+    void LoadMaterials(const tinygltf::Model& model, int materialIndex);
 
+    static std::wstring StringToWString(const std::string& str);
 
-    GLuint GetVBO() { return vbo; }
-    GLuint GetEBO() { return ebo; }
-    int GetVertexCount() { return vertexCount;  }
-    GLsizei GetIndexCount() { return indexCount; }
+    GLuint GetVBO() const { return vbo; }
+    GLuint GetEBO() const { return ebo; }
+    GLuint GetVAO() const { return vao; }
+    int GetVertexCount() const { return vertexCount;  }
+    GLsizei GetIndexCount() const { return indexCount; }
+
+    const Material GetMaterial() const { return material; }
 
 
 
@@ -35,6 +53,6 @@ private:
     int vertexCount;
     GLsizei materialIndex;   // Material index from tinygltf
     GLsizei indexCount;  // Number of indices for rendering
-
+    Material material;
 };
 

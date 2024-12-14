@@ -23,6 +23,7 @@ public:
 	void WindowResized(unsigned width, unsigned height);
 	void* GetContext() const { return context; }
 
+
 	GLuint LoadTextureToGPU(const wchar_t* filePath);
 	
 private:

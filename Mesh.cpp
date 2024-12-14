@@ -5,6 +5,7 @@
 #include "lib/MathGeoLib/Math/float3.h"
 #include "Application.h"
 #include "ModuleRenderExercise.h"
+#include "ModuleOpenGL.h"
 
 
 
@@ -83,25 +84,6 @@ void Mesh::Load(const tinygltf::Model& model, const tinygltf::Mesh& mesh, const 
 			const tinygltf::Accessor& indAcc = model.accessors[primitive.indices];
 			const tinygltf::BufferView& indView = model.bufferViews[indAcc.bufferView];
 			const unsigned char* buffer = &(model.buffers[indView.buffer].data[indAcc.byteOffset + indView.byteOffset]);
-			/*
-			if (indAcc.componentType == TINYGLTF_PARAMETER_TYPE_UNSIGNED_INT)
-			{
-				const uint32_t* bufferInd = reinterpret_cast<const int32_t*>(buffer);
-				for (uint32_t i = 0; i < num_indices; ++i) ptr[i] = bufferInd[i];
-			}
-			else if (indAcc.componentType == TINYGLTF_PARAMETER_TYPE_UNSIGNED_SHORT) {
-				const uint16_t* indices = reinterpret_cast<const uint16_t*>(bufferInd);
-				for (size_t i = 0; i < indAcc.count; ++i) {
-					mappedIndices[i] = indices[i];
-				}
-			}
-			else if (indAcc.componentType == TINYGLTF_PARAMETER_TYPE_UNSIGNED_BYTE) {
-				const uint8_t* indices = reinterpret_cast<const uint8_t*>(bufferInd);
-				for (size_t i = 0; i < indAcc.count; ++i) {
-					mappedIndices[i] = indices[i];
-				}
-			}
-			*/
 
 				//INDICES
 			std::vector<uint32_t> indices(indAcc.count);
@@ -134,18 +116,61 @@ void Mesh::Load(const tinygltf::Model& model, const tinygltf::Mesh& mesh, const 
 
 			indexCount = indAcc.count;
 		}
-		
 
-		/*
-		float3* ptr = reinterpret_cast<float3*>(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));
-		
-		for (size_t i = 0; i < posAcc.count; ++i)
-		{
-			ptr[i] = *reinterpret_cast<const float3*>(bufferPos);
-			bufferPos += posView.byteStride;
+		glGenVertexArrays(1, &vao);
+		glBindVertexArray(vao);
+
+		// Set up the vertex attribute pointers
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0); // Position attribute
+		glEnableVertexAttribArray(0);
+
+		if (primitive.attributes.find("TEXCOORD_0") != primitive.attributes.end()) {
+			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(float) * 3)); // TexCoord attribute
+			glEnableVertexAttribArray(1);
 		}
-		
-		glUnmapBuffer(GL_ARRAY_BUFFER);
-		*/
+
+		// Bind EBO
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+
+		// Unbind VAO 
+		glBindVertexArray(0);
 	}
+
+	int materialIndex = primitive.material; // Fetch material index from primitive
+	LoadMaterials(model, materialIndex);    // Load material and assign textures
+}
+
+
+void Mesh::LoadMaterials(const tinygltf::Model &srcModel, int materialIndex)
+{
+
+	const tinygltf::Material& srcMaterial = srcModel.materials[materialIndex];
+
+	if (srcMaterial.pbrMetallicRoughness.baseColorTexture.index >= 0)
+	{
+		const tinygltf::Texture& texture = srcModel.textures[srcMaterial.pbrMetallicRoughness.baseColorTexture.index];
+		const tinygltf::Image& image = srcModel.images[texture.source];
+		std::wstring uriW = StringToWString(image.uri);
+		material.baseColorTextureID = App->GetOpenGL()->LoadTextureToGPU(uriW.c_str());
+	}
+	
+	if (!srcMaterial.pbrMetallicRoughness.baseColorFactor.empty()) {
+		for (int i = 0; i < 4; ++i) {
+			material.baseColorFactor[i] = srcMaterial.pbrMetallicRoughness.baseColorFactor[i];
+		}
+	}
+
+	
+	// Metallic factor and roughness factor
+
+	material.metallicFactor = srcMaterial.pbrMetallicRoughness.metallicFactor;
+	//material.roughnessFactor = srcMaterial.pbrMetallicRoughness.roughnessFactor;
+
+
+}
+
+std::wstring Mesh::StringToWString(const std::string& str)
+{
+	return std::wstring(str.begin(), str.end());
 }

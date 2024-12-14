@@ -28,10 +28,10 @@ public:
 	void UpdateViewMatrix();
 	void UpdateProjectionMatrix();
 	void RenderAllMeshes();
-	void RenderMesh(Mesh mesh);
+	void RenderMesh(const Mesh& mesh);
 	void AddMesh(Mesh* mesh);
 	void ClearMeshes();
-
+	
 private:
 
 	unsigned vbo;

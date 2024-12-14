@@ -153,16 +153,29 @@ void ModuleRenderExercise::DestroyVBO(unsigned vbo)
 }
 
 //rendering gltf mesh
-void ModuleRenderExercise::RenderMesh(Mesh mesh) {
+void ModuleRenderExercise::RenderMesh(const Mesh& mesh) {
     glUseProgram(program);
 
+    glActiveTexture(GL_TEXTURE5);
+
     UpdateViewMatrix();
+
+    glBindTexture(GL_TEXTURE_2D, mesh.GetMaterial().baseColorTextureID);
+    glUniform1i(glGetUniformLocation(program, "diffuse"), 5);
+
+    glUniform4fv(glGetUniformLocation(program, "baseColorFactor"), 1, mesh.GetMaterial().baseColorFactor);
+    glUniform1f(glGetUniformLocation(program, "metallicFactor"), mesh.GetMaterial().metallicFactor);
 
     glUniformMatrix4fv(modelLoc, 1, GL_TRUE, &model[0][0]);
     glUniformMatrix4fv(viewLoc, 1, GL_TRUE, &view[0][0]);
     glUniformMatrix4fv(projectionLoc, 1, GL_TRUE, &projection[0][0]);
 
-    glBindBuffer(GL_ARRAY_BUFFER, mesh.GetVBO());
+    glBindVertexArray(mesh.GetVAO());
+    glDrawElements(GL_TRIANGLES, mesh.GetIndexCount(), GL_UNSIGNED_INT, nullptr);
+    glBindVertexArray(0);
+
+    /*
+    glBindBuffe r(GL_ARRAY_BUFFER, mesh.GetVBO());
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.GetEBO());
 
     glEnableVertexAttribArray(0);
@@ -176,7 +189,7 @@ void ModuleRenderExercise::RenderMesh(Mesh mesh) {
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
+    */
 }
 
 void ModuleRenderExercise::AddMesh(Mesh* mesh)
@@ -192,3 +205,4 @@ void ModuleRenderExercise::ClearMeshes()
        meshes.clear();
     }
 }
+
