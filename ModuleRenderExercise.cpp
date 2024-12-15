@@ -29,7 +29,7 @@ bool ModuleRenderExercise::Init()
         float4x4::identity,
         float3(100.0f, 100.0f, 100.0f)); // No transformation
         
-
+    UpdateProjectionMatrix();
 	return true;
 }
 

@@ -84,6 +84,6 @@ int main(int argc, char ** argv)
 	}
 
 	delete App;
-	Logger::Instance().LOGS("Bye :)\n");
+	LOG("Bye :)\n");
 	return main_return;
 }

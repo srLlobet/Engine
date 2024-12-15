@@ -17,7 +17,6 @@ ModuleModel::ModuleModel()
 
 ModuleModel::~ModuleModel()
 {
-
 }
 
 
@@ -29,6 +28,7 @@ bool ModuleModel::Init()
 
 void ModuleModel::Load(const char* assetFileName)
 {
+	App->GetRenderExercise()->ClearMeshes();
 
 	tinygltf::TinyGLTF gltfContext;
 	tinygltf::Model model;
@@ -57,8 +57,14 @@ void ModuleModel::Load(const char* assetFileName)
 			Mesh* mesh = new Mesh;
 
 			mesh->Load(model, srcMesh, primitive);
+
 			App->GetRenderExercise()->AddMesh(mesh);
+
 		}
 	}
 
+}
+
+void ModuleModel::LoadFromDragAndDrop(const char* assetFileName) {
+	Load(assetFileName);
 }

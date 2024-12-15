@@ -34,6 +34,7 @@ public:
     ModuleRenderExercise* GetRenderExercise() { return program;}
     ModuleTexture* GetTexture() { return texture; }
     ModuleModel* GetModel() { return model; }
+    ModuleEditor* GetEditor() { return editor; }
 
 
 

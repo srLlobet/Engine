@@ -2,6 +2,7 @@
 #include "ModuleInput.h"
 #include "ModuleWindow.h"
 #include "ModuleCamera.h"
+#include "ModuleModel.h"
 #include "ModuleRenderExercise.h"
 #include "imgui_impl_sdl2.h"
 #include "Logger.h"
@@ -51,17 +52,17 @@ update_status ModuleInput::Update(float deltaTime)
             case SDL_KEYDOWN:
 
                 if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_W)
-                    App->GetCamera()->MoveForward(true);  //  forward
+                    App->GetCamera()->MoveForward(true, deltaTime);  //  forward
                 else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_S)
-                    App->GetCamera()->MoveForward(false); // camera backward
+                    App->GetCamera()->MoveForward(false, deltaTime); // camera backward
                 else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_D)
-                    App->GetCamera()->MoveRight(true); // camera left
+                    App->GetCamera()->MoveRight(true, deltaTime); // camera left
                 else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_A)
-                    App->GetCamera()->MoveRight(false); // camera right
+                    App->GetCamera()->MoveRight(false, deltaTime); // camera right
                 else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_Q)
-                    App->GetCamera()->MoveUp(true); // camera up
+                    App->GetCamera()->MoveUp(true, deltaTime); // camera up
                 else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_E)
-                    App->GetCamera()->MoveUp(false); // camera down
+                    App->GetCamera()->MoveUp(false, deltaTime); // camera down
 
 
                 if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_UP)
@@ -90,6 +91,27 @@ update_status ModuleInput::Update(float deltaTime)
                  }
                 
                 break;
+            }
+
+            case SDL_MOUSEWHEEL: {
+                int y = sdlEvent.wheel.y;
+
+                if (y > 0) {
+                    // Zoom In
+                    App->GetCamera()->ZoomIn();
+                }
+                else if (y < 0) {
+                    // Zoom Out
+                    App->GetCamera()->ZoomOut();
+                }
+                break;
+            }
+
+
+            case SDL_DROPFILE: {
+                    const char* filePath = sdlEvent.drop.file;
+                    App->GetModel()->LoadFromDragAndDrop(filePath);
+                    SDL_free(sdlEvent.drop.file);
             }
         }
         ImGui_ImplSDL2_ProcessEvent(&sdlEvent);

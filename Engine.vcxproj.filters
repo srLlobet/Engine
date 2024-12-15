@@ -437,4 +437,9 @@
       <Filter>External Resources\media\gltfFiles</Filter>
     </Image>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="lib\imgui-docking\LICENSE.txt">
+      <Filter>External Resources</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

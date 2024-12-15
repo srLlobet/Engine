@@ -4,7 +4,6 @@
     #include "lib/MathGeoLib/Math/MathConstants.h"
     #include "lib/MathGeoLib/Math/Quat.h"
 
-    #include "Logger.h"
 
     ModuleCamera::ModuleCamera()
     {
@@ -51,32 +50,45 @@
 
 
 
-    void ModuleCamera::MoveForward(bool moveForward)
+    void ModuleCamera::MoveForward(bool moveForward, float deltaTime)
     {
         if (moveForward)
-            frustum.pos += frustum.front * MOVESPEED; // Move forward
+            frustum.pos += frustum.front * MOVESPEED * deltaTime; // Move forward
         else
-            frustum.pos -= frustum.front * MOVESPEED;
+            frustum.pos -= frustum.front * MOVESPEED * deltaTime;
 
         RefreshViewMatrix();
     }
 
-    void ModuleCamera::MoveRight(bool moveRight)
+    void ModuleCamera::MoveRight(bool moveRight, float deltaTime)
     {
         if (moveRight)
-            frustum.pos += frustum.WorldRight() * MOVESPEED; // Move right
+            frustum.pos += frustum.WorldRight() * MOVESPEED * deltaTime; // Move right
         else
-            frustum.pos -= frustum.WorldRight() * MOVESPEED; // Move left
+            frustum.pos -= frustum.WorldRight() * MOVESPEED * deltaTime; // Move left
         RefreshViewMatrix();
     }
 
-    void ModuleCamera::MoveUp(bool moveUp)
+    void ModuleCamera::MoveUp(bool moveUp, float deltaTime)
     {
         if (moveUp)
-            frustum.pos += frustum.up * MOVESPEED; // Move up
+            frustum.pos += frustum.up * MOVESPEED * deltaTime; // Move up
         else
-            frustum.pos -= frustum.up * MOVESPEED; // Move down
+            frustum.pos -= frustum.up * MOVESPEED * deltaTime; // Move down
 
+        RefreshViewMatrix();
+    }
+
+    void ModuleCamera::ZoomIn()
+    {
+
+        frustum.pos += frustum.front * MOVESPEED/10;
+        RefreshViewMatrix();
+    }
+
+    void ModuleCamera::ZoomOut()
+    {
+        frustum.pos -= frustum.front * MOVESPEED / 10;
         RefreshViewMatrix();
     }
 

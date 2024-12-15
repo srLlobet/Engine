@@ -23,4 +23,4 @@ enum update_status
 #define FULLSCREEN false
 #define VSYNC true
 #define TITLE "Engine"
-#define MOVESPEED 1
+#define MOVESPEED 10
