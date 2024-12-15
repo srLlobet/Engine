@@ -40,6 +40,8 @@ bool ModuleOpenGL::Init()
 	glFrontFace(GL_CCW); // Front faces will be counter clockwise
 
 	
+	widthBuff = SCREEN_WIDTH;
+	heightBuff = SCREEN_HEIGHT;
 	return true;
 }
 
@@ -87,7 +89,8 @@ bool ModuleOpenGL::CleanUp()
 void ModuleOpenGL::WindowResized(unsigned width, unsigned height)
 {
 	glViewport(0, 0, width, height);  // Update the OpenGL viewport
-
+	widthBuff = width;
+	heightBuff = height;
 	App->GetCamera()->RecalculateHorizontalFov(static_cast<float>(width) / height);
 	App->GetRenderExercise()->UpdateProjectionMatrix();
 }

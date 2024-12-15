@@ -34,7 +34,7 @@ bool ModuleEditor::Init()
     showDemoWindow = false;
     showAboutWindow = false;
     showHardwareWindow = false;
-
+    showWindowOptions = false;
 
     return true;
 }
@@ -84,7 +84,9 @@ void ModuleEditor::RenderUI(float deltaTime) {
     if (showHardwareWindow) {
         DrawHardware();
     }
-
+    if (showWindowOptions) {
+        DrawWindowOptions();
+    }
     DrawConsole();
 
 }
@@ -106,8 +108,8 @@ void ModuleEditor::DrawMenuBar() {
             }
 
             if (ImGui::BeginMenu("Settings")) {
-                if (ImGui::MenuItem("Preferences")) {
-
+                if (ImGui::MenuItem("Window", nullptr, showWindowOptions)) {
+                    showWindowOptions = !showWindowOptions;
                 }
                 ImGui::EndMenu();
             }
@@ -259,3 +261,27 @@ void ModuleEditor::DrawHardware() {
 
     ImGui::End();
 }
+
+void ModuleEditor::DrawWindowOptions() {
+     ImGui::Begin("Window Options", &showWindowOptions);
+
+     static int screenWidth = App->GetOpenGL()->GetScreenWidth();
+     static int screenHeight = App->GetOpenGL()->GetScreenHeight();
+
+     ImGui::InputInt("Screen Width", &screenWidth);
+     ImGui::InputInt("Screen Height", &screenHeight);
+
+     if (ImGui::Button("Apply")) {
+
+         SDL_Event resizeEvent;
+         resizeEvent.type = SDL_WINDOWEVENT;
+         resizeEvent.window.event = SDL_WINDOWEVENT_RESIZED;
+         resizeEvent.window.data1 = screenWidth; // new width
+         resizeEvent.window.data2 = screenHeight; // new height
+         SDL_PushEvent(&resizeEvent);
+
+     }
+
+     ImGui::End();
+}
+

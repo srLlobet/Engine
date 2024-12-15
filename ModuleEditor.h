@@ -30,6 +30,7 @@ public:
 	void DrawMenuBar();
 	void AboutWindow();
 	void DrawHardware();
+	void DrawWindowOptions();
 
 private:
 	std::vector<float> fps_log;
@@ -40,5 +41,5 @@ private:
 	bool showDemoWindow;
 	bool showAboutWindow;
 	bool showHardwareWindow;
-
+	bool showWindowOptions;
 };

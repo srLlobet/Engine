@@ -22,10 +22,12 @@ public:
 	bool CleanUp();
 	void WindowResized(unsigned width, unsigned height);
 	void* GetContext() const { return context; }
-
+	float GetScreenWidth() const { return widthBuff; }
+	float GetScreenHeight() const { return heightBuff; }
 
 	GLuint LoadTextureToGPU(const wchar_t* filePath);
 	
 private:
 	void* context;
+	float widthBuff, heightBuff;
 };
