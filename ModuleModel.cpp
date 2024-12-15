@@ -49,6 +49,16 @@ void ModuleModel::Load(const char* assetFileName)
 			LOG("Failed to parse glTF\n");
 		}
 	}
+	//super quick work-around for delivery 
+	for (const auto& node : model.nodes)
+	{
+		
+		scalex = node.scale.empty() ? 0.05f : node.scale[0];
+		scaley = node.scale.empty() ? 0.05f : node.scale[1];
+		scalez = node.scale.empty() ? 0.05f : node.scale[2];
+
+	}
+	App->GetRenderExercise()->AdjustModelMatrix(scalex, scaley, scalez);
 
 	for (const auto& srcMesh : model.meshes)
 	{
@@ -62,6 +72,7 @@ void ModuleModel::Load(const char* assetFileName)
 
 		}
 	}
+	
 
 }
 

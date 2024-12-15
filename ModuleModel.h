@@ -10,5 +10,7 @@ public:
 	bool Init();
 	void Load(const char* assetFileName);
 	void LoadFromDragAndDrop(const char* assetFileName);
+private:
+	float scalex, scaley, scalez;
 };
 

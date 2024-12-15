@@ -25,10 +25,6 @@ bool ModuleRenderExercise::Init()
     projectionLoc = glGetUniformLocation(program, "projection");
 
 
-    model = float4x4::FromTRS(float3(0.0f, 0.0f, 0.0f),
-        float4x4::identity,
-        float3(100.0f, 100.0f, 100.0f)); // No transformation
-        
     UpdateProjectionMatrix();
 	return true;
 }
@@ -46,6 +42,12 @@ update_status ModuleRenderExercise::Update(float deltaTime)
     return UPDATE_CONTINUE;
 }
 
+void ModuleRenderExercise::AdjustModelMatrix(float x, float y, float z) {
+
+    model = float4x4::FromTRS(float3(0.0f, 0.0f, 0.0f),
+        float4x4::identity,
+        float3(x, y, z)); // No transformation
+}
 
 
 void ModuleRenderExercise::UpdateViewMatrix() {

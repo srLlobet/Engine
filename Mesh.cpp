@@ -142,6 +142,7 @@ void Mesh::Load(const tinygltf::Model& model, const tinygltf::Mesh& mesh, const 
 		glBindVertexArray(0);
 	}
 
+
 	int materialIndex = primitive.material; // Fetch material index from primitive
 	LoadMaterials(model, materialIndex);    // Load material and assign textures
 }

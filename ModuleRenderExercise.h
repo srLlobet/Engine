@@ -31,6 +31,7 @@ public:
 	void RenderMesh(const Mesh& mesh);
 	void AddMesh(Mesh* mesh);
 	void ClearMeshes();
+	void AdjustModelMatrix(float x, float y, float z);
 	
 private:
 

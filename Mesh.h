@@ -42,7 +42,6 @@ public:
     GLuint GetVAO() const { return vao; }
     int GetVertexCount() const { return vertexCount;  }
     GLsizei GetIndexCount() const { return indexCount; }
-
     const Material GetMaterial() const { return material; }
 
 
