@@ -47,7 +47,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -135,13 +135,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>.\SDL\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\DirectXTex;$(ProjectDir)lib\SDL\include;$(ProjectDir)lib\glew-2.2.0\include;$(ProjectDir)lib\imgui-docking;$(ProjectDir)lib\imgui-docking\backends;$(ProjectDir)lib\MathGeoLib</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib\glew-2.2.0\lib\Release\x64;$(ProjectDir)lib\DirectXTex\Bin\Desktop_2022_Win10\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;DirectXTex.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -157,8 +159,6 @@
     <ClCompile Include="lib\MathGeoLib\Geometry\AABB.cpp" />
     <ClCompile Include="lib\MathGeoLib\Geometry\Capsule.cpp" />
     <ClCompile Include="lib\MathGeoLib\Geometry\Circle.cpp" />
-    <ClCompile Include="lib\MathGeoLib\Geometry\Cone.cpp" />
-    <ClCompile Include="lib\MathGeoLib\Geometry\Cylinder.cpp" />
     <ClCompile Include="lib\MathGeoLib\Geometry\Frustum.cpp" />
     <ClCompile Include="lib\MathGeoLib\Geometry\Line.cpp" />
     <ClCompile Include="lib\MathGeoLib\Geometry\LineSegment.cpp" />
@@ -219,8 +219,6 @@
     <ClInclude Include="lib\MathGeoLib\Geometry\AABB2D.h" />
     <ClInclude Include="lib\MathGeoLib\Geometry\Capsule.h" />
     <ClInclude Include="lib\MathGeoLib\Geometry\Circle.h" />
-    <ClInclude Include="lib\MathGeoLib\Geometry\Cone.h" />
-    <ClInclude Include="lib\MathGeoLib\Geometry\Cylinder.h" />
     <ClInclude Include="lib\MathGeoLib\Geometry\Frustum.h" />
     <ClInclude Include="lib\MathGeoLib\Geometry\GeometryAll.h" />
     <ClInclude Include="lib\MathGeoLib\Geometry\GeomType.h" />

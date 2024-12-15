@@ -33,17 +33,8 @@ bool ModuleEditor::Init()
 
     showDemoWindow = false;
     showAboutWindow = false;
-    showConfigWindow = true;
-    showAssetsListWindow = true;
-    showAssetsWindow = true;
+    showHardwareWindow = false;
 
-    showConsoleWindow = true;
-    showHierarchyWindow = true;
-    showInspectorWindow = true;
-    showGameWindow = true;
-    showSceneWindow = true;
-    showTextures = true;
-    showLoadScene = false;
 
     return true;
 }
@@ -90,6 +81,9 @@ void ModuleEditor::RenderUI(float deltaTime) {
     if (showAboutWindow) {
         AboutWindow();  // Show the About window
     }
+    if (showHardwareWindow) {
+        DrawHardware();
+    }
 
     DrawConsole();
 
@@ -120,8 +114,12 @@ void ModuleEditor::DrawMenuBar() {
 
             if (ImGui::BeginMenu("About")) {
                 // Correctly toggle the state of showAboutWindow
-                if (ImGui::MenuItem("Show About", nullptr, showAboutWindow)) {
+                if (ImGui::MenuItem("About", nullptr, showAboutWindow)) {
                     showAboutWindow = !showAboutWindow;
+                }
+                
+                if (ImGui::MenuItem("Hardware", nullptr, showHardwareWindow)) {
+                    showHardwareWindow = !showHardwareWindow;
                 }
                 ImGui::EndMenu();
             }
@@ -153,7 +151,7 @@ void ModuleEditor::AboutWindow()
         ShellExecuteA(nullptr, "open", "https://github.com/srLlobet", nullptr, nullptr, SW_SHOWNORMAL);
     }
     ImGui::Separator();
-    ImGui::Text("3RD PARTY LIBRARIES");
+    ImGui::Text("LIBRARIES");
     ImGui::Separator();
     ImGui::BulletText("Glew v2.2.0");
     ImGui::BulletText("OpenGL v4.6.0");
@@ -168,15 +166,15 @@ void ModuleEditor::AboutWindow()
     ImGui::Text("MIT License\n\n");
     ImGui::Text("Copyright (c) 2024 srLlobet");
     ImGui::Text("\n");
-    ImGui::Text("Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal\n");
-    ImGui::Text("in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and /or sell\n");
+    ImGui::Text("Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal \n");
+    ImGui::Text("in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell \n");
     ImGui::Text("copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions : \n");
     ImGui::Text("\n");
-    ImGui::Text("The above copyright notice and this permission notice shall be included in all\n\ncopies or substantial portions of the Software.\n");
+    ImGui::Text("The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n");
     ImGui::Text("\n");
     ImGui::Text("THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, \n");
-    ImGui::Text("FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n");
-    ImGui::Text("LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\n");
+    ImGui::Text("FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER \n");
+    ImGui::Text("LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE \n");
     ImGui::Text("SOFTWARE.\n");
 
     ImGui::End();
@@ -240,4 +238,24 @@ void ModuleEditor::DrawConsole() {
         }
         ImGui::End();
     }
+}
+
+void ModuleEditor::DrawHardware() {
+    ImGui::Begin("Hardware Information", &showHardwareWindow);
+
+    int major, minor;
+    glGetIntegerv(GL_MAJOR_VERSION, &major);
+    glGetIntegerv(GL_MINOR_VERSION, &minor);
+
+    const GLubyte* vendor = glGetString(GL_VENDOR);
+    const GLubyte* renderer = glGetString(GL_RENDERER);
+    GLint memorySize = 0;
+    glGetIntegerv(GL_GPU_MEMORY_INFO_TOTAL_AVAILABLE_MEMORY_NVX, &memorySize);  // Example for NVIDIA GPU
+
+    ImGui::Text("OpenGL Version: %d.%d", major, minor);
+    ImGui::Text("Vendor: %s", vendor);
+    ImGui::Text("Renderer: %s", renderer);
+    ImGui::Text("GPU Memory: %d MB", memorySize / (1024 * 1024));  // Convert bytes to megabytes
+
+    ImGui::End();
 }

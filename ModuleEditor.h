@@ -28,8 +28,8 @@ public:
 	void DrawConsole();
 	void RenderUI(float deltaTime);
 	void DrawMenuBar();
-	void showWindows();
 	void AboutWindow();
+	void DrawHardware();
 
 private:
 	std::vector<float> fps_log;
@@ -39,14 +39,6 @@ private:
 
 	bool showDemoWindow;
 	bool showAboutWindow;
-	bool showConfigWindow;
-	bool showInspectorWindow;
-	bool showHierarchyWindow;
-	bool showSceneWindow;
-	bool showGameWindow;
-	bool showTextures;
-	bool showConsoleWindow;
-	bool showLoadScene;
-	bool showAssetsListWindow;
-	bool showAssetsWindow;
+	bool showHardwareWindow;
+
 };
